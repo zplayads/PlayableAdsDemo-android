@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_id">输入app_id</string>
+    <string name="ad_unit_id">输入广告位id</string>
+    <string name="request">请求广告</string>
+    <string name="present">展示广告</string>
+    <string name="payload_loaded">请求实体加载完成</string>
+    <string name="play_page_loaded">游戏页缓存完成</string>
+    <string name="landing_page_loaded">落地页缓存完成</string>
+    <string name="ads_incentive">点击落地页上的叉号</string>
+    <string name="ads_error">错误信息： %1$d -> %2$s</string>
+    <string name="open_camera_permission">请打开相机权限，否则无法打开相机</string>
+    <string name="code_request_error">解析二维码失败</string>
+    <string name="open_write_permission">请打开读写权限，否则无法开启优化广告启动速度</string>
+    <string name="open_phone_permission">请打开电话权限，否则无法正常获取imei等标志信息，可能导致没有广告收益</string>
+    <string name="load_failed">错误码: %1$d 描述: %2$s</string>
+    <string name="start_request">开始请求广告</string>
+    <string name="pre_cache_finished">预加载完成</string>
+    <string name="loading_ad">广告加载中…</string>
+</resources>

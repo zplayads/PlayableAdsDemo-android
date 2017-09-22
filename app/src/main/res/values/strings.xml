@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PlayableAdsDemo</string>
+    <string name="app_id">Your App ID here</string>
+    <string name="ad_unit_id">Your Ad Unit ID here</string>
+    <string name="request">Request</string>
+    <string name="present">Present</string>
+    <string name="payload_loaded">payload loaded</string>
+    <string name="play_page_loaded">play page loaded</string>
+    <string name="landing_page_loaded">landing page loaded</string>
+    <string name="ads_incentive">click landing page close button</string>
+    <string name="ads_error">error message: %1$d -> %2$s</string>
+    <string name="open_camera_permission">open camera permission please.</string>
+    <string name="code_request_error">parse QR code error</string>
+    <string name="open_write_permission">open WRITE_EXTERNAL_STORAGE permission, it can speed up the ad view showing.</string>
+    <string name="open_phone_permission">Please open the READ_PHONE_STATE permissions, or can not normally get imei information, may lead to no advertising revenue</string>
+    <string name="load_failed">errorCode: %1$d message: %2$s</string>
+    <string name="start_request">Start request ad</string>
+    <string name="pre_cache_finished">ad load is complete</string>
+    <string name="loading_ad">ad is loading…</string>
+</resources>
