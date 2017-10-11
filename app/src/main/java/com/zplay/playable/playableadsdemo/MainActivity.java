@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
         mPresentView = findViewById(R.id.present);
         mPresentView.setEnabled(false);
 
-        // 务必进行初始化
+        // 务必进行初始化，将androidDemoApp与androidDemoAdUnit替换为通过审核的appId和广告位Id
         mAds = PlayableAds.init(this, "androidDemoApp", "androidDemoAdUnit");
     }
 
