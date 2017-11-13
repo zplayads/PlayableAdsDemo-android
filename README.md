@@ -107,7 +107,7 @@ PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoading
     public boolean canPresentAd(java.lang.String);
     public void setMultiLoadingListener(com.playableads.MultiPlayLoadingListener);
     public void setMultiPreloadingListener(com.playableads.MultiPlayPreloadingListener);
-    public void setCacheCount(int);
+    public void setCacheCountPerUnitId(int);
 }
 ```
 

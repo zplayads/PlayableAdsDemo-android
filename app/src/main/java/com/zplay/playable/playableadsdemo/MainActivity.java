@@ -34,6 +34,7 @@ public class MainActivity extends Activity {
 
         // 务必进行初始化，将androidDemoApp与androidDemoAdUnit替换为通过审核的appId和广告位Id
         mAds = PlayableAds.init(this, APP_ID);
+        mAds.setCacheCountPerUnitId(1);
     }
 
     // 请求广告
