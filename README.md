@@ -19,8 +19,7 @@ adUnitID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:1.0.6'
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.playableads:playableads:1.2.4'
 }
 ```
 
@@ -29,9 +28,9 @@ dependencies {
 
 # 3 代码接入
 ## 3.1 初始化SDK
-调用```PlayableAds.init(context, APPID, adUnitID)```代码初始化SDK
+调用```PlayableAds.init(context, APPID)```代码初始化SDK
 ## 3.2 请求广告
-调用```PlayableAds.getInstance().requestPlayableAds(playPreloadingListener)```加载广告，listener回调方法说明：
+调用```PlayableAds.getInstance().requestPlayableAds(adUnitId, playPreloadingListener)```加载广告，listener回调方法说明：
 ```
 
 public interface PlayPreloadingListener {
@@ -44,7 +43,7 @@ public interface PlayPreloadingListener {
 
 请求示例：
 ```
-PlayableAds.getInstance().requestPlayableAds(new PlayPreloadingListener() {
+PlayableAds.getInstance().requestPlayableAds("androidDemoAdUnit", new PlayPreloadingListener() {
     @Override
     public void onLoadFinished() {
         // 广告加载完成，可以调用presentPlayableAd(...)方法展示广告了
@@ -58,7 +57,7 @@ PlayableAds.getInstance().requestPlayableAds(new PlayPreloadingListener() {
 ```
 
 ## 3.3 展示广告
-调用```PlayableAds.getInstance().presentPlayableAD(this, playLoadingListener)```展示广告，listener回调方法说明：
+调用```PlayableAds.getInstance().presentPlayableAD(adUnitId, playLoadingListener)```展示广告，listener回调方法说明：
 ```
 public interface PlayLoadingListener {
     // 完成整个广告事务（游戏展示，游戏试玩和落地页退出）后的回调，表示可以下发奖励
@@ -69,7 +68,7 @@ public interface PlayLoadingListener {
 ```
 展示示例：
 ```
-PlayableAds.getInstance().presentPlayableAD(activity, new PlayLoadingListener() {
+PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoadingListener() {
     @Override
     public void playableAdsIncentive() {
         // 广告展示完成，回到原页面，此时可以给用户奖励了。
@@ -91,19 +90,28 @@ PlayableAds.getInstance().presentPlayableAD(activity, new PlayLoadingListener() 
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class com.playableads.PlayableReceiver {*;}
+-keep class com.playableads.constants.StatusCode {*;}
+-keep class com.playableads.MultiPlayLoadingListener {*;}
+-keep class com.playableads.MultiPlayPreloadingListener {*;}
+-keep class * implements com.playableads.MultiPlayLoadingListener {*;}
+-keep class * implements com.playableads.MultiPlayPreloadingListener {*;}
 -keep class com.playableads.PlayableAds {
     public void onDestroy();
     public static com.playableads.PlayableAds getInstance();
-    public void requestPlayableAds(com.playableads.PlayPreloadingListener);
+    public void requestPlayableAds(com.playableads.PlayPreloadingListener, java.lang.String);
     public void requestPlayableAds(java.lang.String, com.playableads.PlayPreloadingListener);
-    public synchronized static com.playableads.PlayableAds init(android.content.Context, java.lang.String, java.lang.String);
-    public void presentPlayableAD(android.content.Context, com.playableads.PlayLoadingListener);
-    public boolean canPresentAd();
+    public synchronized static com.playableads.PlayableAds init(android.content.Context, java.lang.String);
+    public void presentPlayableAD(java.lang.String, com.playableads.PlayLoadingListener);
+    public void presentPlayableAd(com.playableads.PlayLoadingListener);
+    public boolean canPresentAd(java.lang.String);
+    public void setMultiLoadingListener(com.playableads.MultiPlayLoadingListener);
+    public void setMultiPreloadingListener(com.playableads.MultiPlayPreloadingListener);
+    public void setCacheCount(int);
 }
 ```
 
 ## 补充说明
-* android端暂时只能请求一个广告，不能批量请求。
 * 每次广告请求只能展示一次，展示完成后需要重新请求广告
 * 由于广告资源较大，请尽可能早的请求广告。
 * 请保证应用有电话权限、存储权限，否则可能出现一直没有广告的状态。
