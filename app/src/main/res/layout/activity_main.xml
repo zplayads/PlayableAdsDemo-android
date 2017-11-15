@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="#fff"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -17,7 +16,9 @@
             android:id="@+id/unitId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/ad_unit_id"/>
+            android:hint="@string/ad_unit_id"
+            android:textColor="#222222"
+            android:textColorHint="#666666" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="request"
                 android:text="@string/request"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false" />
 
             <Button
                 android:id="@+id/present"
@@ -39,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:onClick="present"
                 android:text="@string/present"
-                android:textAllCaps="false"/>
+                android:textAllCaps="false" />
         </LinearLayout>
 
     </LinearLayout>
@@ -56,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#222222"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
 
     </ScrollView>
 

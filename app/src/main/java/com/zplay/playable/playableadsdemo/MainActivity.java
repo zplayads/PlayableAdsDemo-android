@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ScrollView;
@@ -18,11 +20,12 @@ import com.playableads.SimplePlayLoadingListener;
 
 public class MainActivity extends Activity {
     private static final String APP_ID = "androidDemoApp";
+    private static final String AD_UNIT_ID = "androidDemoAdUnit";
     private TextView info;
     private EditText mUnitIdEdit;
     private ScrollView mScrollView;
     PlayableAds mAds;
-    private String mUnitId = "androidDemoAdUnit";
+    private String mUnitId = AD_UNIT_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,27 @@ public class MainActivity extends Activity {
         // 务必进行初始化，将androidDemoApp与androidDemoAdUnit替换为通过审核的appId和广告位Id
         mAds = PlayableAds.init(this, APP_ID);
         mAds.setCacheCountPerUnitId(1);
+
+        // 模拟多个广告位
+        mUnitIdEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String unitId = s.toString().trim();
+                if (TextUtils.isEmpty(unitId)) {
+                    mUnitId = AD_UNIT_ID;
+                } else {
+                    mUnitId = unitId;
+                }
+            }
+        });
     }
 
     // 请求广告
@@ -43,9 +67,8 @@ public class MainActivity extends Activity {
 
         String unitId = mUnitIdEdit.getText().toString();
 
-        if(!TextUtils.isEmpty(unitId)){
+        if (!TextUtils.isEmpty(unitId)) {
             mUnitId = unitId;
-
         }
 
         // 尽可能早的请求广告，每次广告展示成功后必须重新执行该方法请求下一个广告
