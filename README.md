@@ -81,6 +81,13 @@ PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoading
 });
 ```
 
+## 3.4 自动加载广告
+
+1. 如果想在每次广告展示结束时自动请求下一个广告，可在 ```playableAdsIncentive()``` 方法中再次请求， **不要** **不要** **不要** 在 onVideoFinished 请求广告， 此方法执行时，整个广告事物还没有结束，
+该广告位还处于filled（填充）状态，所以不会再次请求广告。
+2. 想在请求失败后自动请求下一个广告，可以在 ```onLoadFailed()``` 中重新加载，请自行判断失败原因，避免循环执行 ```onLoadFailed()``` 方法。如当无网络时，请求广告会执行 onLoadFailed 方法，
+如果不加判断在 onLoadFailed 方法中立即发起下个广告请求，导致一直发起无效请求，造成资源浪费。
+
 
 # 4 混淆处理
 如果项目做混淆，请将以下代码放到proguard-rules.pro文件或自定义文件中
@@ -111,7 +118,8 @@ PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoading
 }
 ```
 
-## 补充说明
+# 补充说明
+
 * 每次广告请求只能展示一次，展示完成后需要重新请求广告
 * 由于广告资源较大，请尽可能早的请求广告。
 * 请保证应用有电话权限、存储权限，否则可能出现一直没有广告的状态。
