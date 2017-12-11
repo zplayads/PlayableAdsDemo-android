@@ -13,7 +13,7 @@
     <string name="code_request_error">parse QR code error</string>
     <string name="open_write_permission">open WRITE_EXTERNAL_STORAGE permission, it can speed up the ad view showing.</string>
     <string name="open_phone_permission">Please open the READ_PHONE_STATE permissions, or can not normally get imei information, may lead to no advertising revenue</string>
-    <string name="load_failed">errorCode: %1$d message: %2$s</string>
+    <string name="load_failed">stateCode: %1$d message: %2$s</string>
     <string name="start_request">Start request ad</string>
     <string name="pre_cache_finished">ad load is complete</string>
     <string name="loading_ad">ad is loading…</string>
