@@ -1,4 +1,4 @@
-# 1 Overview
+# 1 Overview (v1.2.9)
 
 
 ## 1.1 Introduction
@@ -23,7 +23,7 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    compile 'com.playableads:playableads:1.2.7'
+    compile 'com.playableads:playableads:1.2.9'
     
     // Optional dependence
     compile 'com.google.android.gms:play-services-ads:11.0.4'
@@ -41,7 +41,7 @@ When you initialize the SDK, you need to provide your APPID and adUnitID (as pre
 
 Call the method below  to initialize SDK
 ```
-PlayableAds.init(context, APPID, adUnitID)
+PlayableAds.init(context, APPID)
 ```
 ## 3.2 Request Ad
 To pre-load an ad may take several seconds, so it's recommended to initialize the SDK and load ads as early as possible. 
@@ -49,7 +49,7 @@ To pre-load an ad may take several seconds, so it's recommended to initialize th
 Call the following method to pre-load playable ad
 
 ```
-PlayableAds.getInstance().requestPlayableAds(playPreloadingListener)
+PlayableAds.getInstance().requestPlayableAds(adUnitId, playPreloadingListener);
 ```
 You can judge the availability of an ad by this listener callback.
 ```
@@ -64,7 +64,7 @@ public interface PlayPreloadingListener {
 Code Sample：
 
 ```
-PlayableAds.getInstance().requestPlayableAds(new PlayPreloadingListener() {
+PlayableAds.getInstance().requestPlayableAds("androidDemoAdUnit", new PlayPreloadingListener() {
     @Override
     public void onLoadFinished() {
         // Ad preload successfully, call method presentPlayableAd(...)to show playable ad.
@@ -79,7 +79,7 @@ PlayableAds.getInstance().requestPlayableAds(new PlayPreloadingListener() {
 ## 3.3 Show Ads/Obtain Rewards
 When an ad is ready to display, you can show it using following method.
 ```
-PlayableAds.getInstance().presentPlayableAD(this, playLoadingListener)
+PlayableAds.getInstance().presentPlayableAD(adUnitId, playLoadingListener)
 ```
 You can confirm the completed ad show with this listener callback.  
 ```
@@ -93,7 +93,7 @@ public interface PlayLoadingListener {
 
 Code Sample:
 ```
-PlayableAds.getInstance().presentPlayableAD(activity, new PlayLoadingListener() {
+PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoadingListener() {
     @Override
     public void playableAdsIncentive() {
         // Ad impression success, use this to judge if the reward should be given. At this point, you can request the next ad
