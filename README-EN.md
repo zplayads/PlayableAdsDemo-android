@@ -139,10 +139,14 @@ If the project need to be proguarded, put the following code into the proguard.p
 ```
 
 # 5 Code Sample
-Click [HERE](https://github.com/yumimobi/PlayableAdsDemo-android.git) to download Demo
+Click [HERE](https://github.com/zplayads/PlayableAdsDemo-android) to download Demo
 
 # 6 Notes
 ## 6.1 Request Ads ASAP
 To ensure the ad resource can be successfully loaded, it’s encouraged to request ads as soon as possible.
 ## 6.2 Permissions
 Make sure your app was granted Phone State permission and Storage Permission, otherwise there may be no ads in your app.
+## 6.3 Request Next Ad
+* Request failed: Reload in onLoadFailed () method, please determine the reason for the failure, to avoid looping onLoadFailed () method. For example, if there is no network, the onLoadFailed () method will be executed. If you request the next advertisement immediately, advertisement will request failed continuously, causing a waste of resources.
+
+* Ad displayed completely: Request again in the playableAdsIncentive () method. Ads can not be requested in the onVideoFinished () method, ads are still in a filled state when the onVideoFinished () method is executed, and ads will not be requested again.
