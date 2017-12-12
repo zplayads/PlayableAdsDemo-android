@@ -105,11 +105,6 @@ PlayableAds.getInstance().presentPlayableAD(activity, new PlayLoadingListener() 
     }
 });
 ```
-## 3.4 Caching Multiple Ads
-The caching of multiple ads for each request is supported. Set it through calling the following code.
-```
-PlayableAds.getInstance().setCacheCountPerUnitId(count)
-```
 
 # 4 Proguard
 If the project need to be proguarded, put the following code into the proguard.pro file or a custom file.
