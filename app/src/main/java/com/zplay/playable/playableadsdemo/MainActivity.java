@@ -98,20 +98,6 @@ public class MainActivity extends Activity {
             public void playableAdsIncentive() {
                 // 广告正确展示，此时广告已经产生收益，您可以给用户奖励货其他
                 setInfo(getString(R.string.ads_incentive));
-
-                // 启动下次请求
-                setInfo(mUnitId + " " + getString(R.string.start_request));
-                mAds.requestPlayableAds(mUnitId, new PlayPreloadingListener() {
-                    @Override
-                    public void onLoadFinished() {
-                        setInfo(mUnitId + " " + getString(R.string.pre_cache_finished));
-                    }
-
-                    @Override
-                    public void onLoadFailed(int errorCode, String msg) {
-                        setInfo(mUnitId + " " + msg);
-                    }
-                });
             }
 
             @Override

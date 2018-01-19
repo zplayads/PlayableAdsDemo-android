@@ -1,4 +1,4 @@
-# 1 概述 v1.2.9
+# 1 概述 v2.0.0
 
 
 ## 1.1 面向读者
@@ -19,7 +19,7 @@ adUnitID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:1.2.9'
+    compile 'com.playableads:playableads:2.0.0'
     
     // 可选依赖
     compile 'com.google.android.gms:play-services-ads:11.0.4'
@@ -116,18 +116,20 @@ PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoading
     public void setMultiLoadingListener(com.playableads.MultiPlayLoadingListener);
     public void setMultiPreloadingListener(com.playableads.MultiPlayPreloadingListener);
     public void setCacheCountPerUnitId(int);
+    public void setAutoLoadAd(boolean);
 }
 ```
 
 # 5 补充说明
 
 ## 5.1 尽早请求广告
-由于广告资源较大，请尽可能早的请求广告。
+由于广告资源较大（每条5到8M），请尽可能早的请求广告。
 
 ## 5.2 设备权限
 请保证应用有电话权限、存储权限，否则可能出现一直没有广告的状态。
 
-## 5.3 请求下一条广告
-* 请求失败时：在onLoadFailed()方法中重新加载，请自行判断失败原因，避免循环执行onLoadFailed()方法。例，无网络时请求广告会执行onLoadFailed()方法，若此时立刻发起下一个广告请求，出现广告持续请求失败的情况，造成资源浪费。
+## 5.3 自动请求广告
+SDK默认初次请求展示完毕后，自动加载下一条广告，可以通过```PlayableAds.getInstance().setAutoLoadAd(false)```关闭自动加载功能。
 
-* 广告展示完成时: 在playableAdsIncentive()方法中再次请求。不可在onVideoFinished()方法中请求广告，onVideoFinished()方法执行时广告还处于filled状态，不会再次请求广告。
+## 5.4 请求多次广告
+可以通过```PlayableAds.getInstance().setCacheCountPerUnitId(cnt)```设置一个广告位可以提前缓存多个广告，该缓存一天内有效。
