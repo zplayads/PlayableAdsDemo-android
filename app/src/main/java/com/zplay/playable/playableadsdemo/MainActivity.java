@@ -8,10 +8,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.playableads.PlayPreloadingListener;
 import com.playableads.PlayableAds;
@@ -19,6 +24,7 @@ import com.playableads.SimplePlayLoadingListener;
 
 
 public class MainActivity extends Activity {
+    private static final String TAG = "MainActivity";
     private static final String APP_ID = "androidDemoApp";
     private static final String AD_UNIT_ID = "androidDemoAdUnit";
     private TextView info;
@@ -34,6 +40,7 @@ public class MainActivity extends Activity {
         info = findViewById(R.id.text);
         mUnitIdEdit = findViewById(R.id.unitId);
         mScrollView = findViewById(R.id.scrollView);
+        ToggleButton mSwitchAutoload = findViewById(R.id.switchAutoLoad);
 
         // 务必进行初始化，将androidDemoApp与androidDemoAdUnit替换为通过审核的appId和广告位Id
         mAds = PlayableAds.init(this, APP_ID);
@@ -59,6 +66,16 @@ public class MainActivity extends Activity {
                 }
             }
         });
+
+       mSwitchAutoload.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+           @Override
+           public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+               mAds.setAutoLoadAd(isChecked);
+               if(isChecked){
+                   request(null);
+               }
+           }
+       });
     }
 
     // 请求广告
