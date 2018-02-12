@@ -133,3 +133,19 @@ SDK默认初次请求展示完毕后，自动加载下一条广告，可以通�
 
 ## 5.4 请求多次广告
 可以通过```PlayableAds.getInstance().setCacheCountPerUnitId(cnt)```设置一个广告位可以提前缓存多个广告，该缓存一天内有效。
+
+## 5.5 状态码及含意
+
+|状态码|描述|补充|
+|-----|----|---|
+|1001|request constructed error|构建请求参数时出错，导致参数缺失|
+|1002|request parameters error.|请求参数不匹配，如没有imei号、系统版过低等|
+|1003|lack of WRITE_EXTERNAL_STORAGE|缺少存储卡权限|
+|1004|lack of READ_PHONE_STATE|缺少手机状态权限|
+|2001|payload has been loaded|广告已经加载完成，此时可以展示广告了|
+|2002|preload finished|广告预加载完成|
+|2004|ads has filled|广告已经在加载或已经加载完成|
+|2005|no ad|服务器无广告返回|
+|5001|context is null|初始化时传入的context为空|
+|5002|network error|网络错误|
+
