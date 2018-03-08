@@ -18,4 +18,6 @@
     <string name="start_request">开始请求广告</string>
     <string name="pre_cache_finished">预加载完成</string>
     <string name="loading_ad">广告加载中…</string>
+    <string name="adUnitId">androidDemoAdUnit</string>
+    <string name="autoload_ad">自动加载广告</string>
 </resources>

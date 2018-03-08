@@ -17,4 +17,6 @@
     <string name="start_request">Start request ad</string>
     <string name="pre_cache_finished">ad load is complete</string>
     <string name="loading_ad">ad is loading…</string>
+    <string name="adUnitId">androidDemoAdUnit</string>
+    <string name="autoload_ad">Autoload Ad</string>
 </resources>
