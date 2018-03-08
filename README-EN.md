@@ -1,4 +1,4 @@
-# 1 Overview (v1.2.9)
+# 1 Overview (v2.0.1)
 
 
 ## 1.1 Introduction
@@ -23,7 +23,7 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    compile 'com.playableads:playableads:1.2.9'
+    compile 'com.playableads:playableads:2.0.1'
     
     // Optional dependence
     compile 'com.google.android.gms:play-services-ads:11.0.4'
@@ -121,6 +121,7 @@ If the project need to be proguarded, put the following code into the proguard.p
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class com.playableads.PlayableReceiver {*;}
 -keep class com.playableads.constants.StatusCode {*;}
 -keep class com.playableads.MultiPlayLoadingListener {*;}
 -keep class com.playableads.MultiPlayPreloadingListener {*;}
@@ -138,7 +139,8 @@ If the project need to be proguarded, put the following code into the proguard.p
     public void setMultiLoadingListener(com.playableads.MultiPlayLoadingListener);
     public void setMultiPreloadingListener(com.playableads.MultiPlayPreloadingListener);
     public void setCacheCountPerUnitId(int);
-```
+    public void setAutoLoadAd(boolean);
+}
 
 # 5 Code Sample
 Click [HERE](https://github.com/zplayads/PlayableAdsDemo-android) to download Demo
@@ -149,6 +151,6 @@ To ensure the ad resource can be successfully loaded, it’s encouraged to reque
 ## 6.2 Permissions
 Make sure your app was granted Phone State permission and Storage Permission, otherwise there may be no ads in your app.
 ## 6.3 Request Next Ad
-* Request failed: Reload in onLoadFailed () method, please determine the reason for the failure, to avoid looping onLoadFailed () method. For example, if there is no network, the onLoadFailed () method will be executed. If you request the next advertisement immediately, advertisement will request failed continuously, causing a waste of resources.
+* PlayableAds sdk will autoload next ad by default, when it failed to load ad they will try again 5 seconds later. You can forbiden autoload action by calling setAutoLoadAd(false).
 
 * Ad displayed completely: Request again in the playableAdsIncentive () method. Ads can not be requested in the onVideoFinished () method, ads are still in a filled state when the onVideoFinished () method is executed, and ads will not be requested again.
