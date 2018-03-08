@@ -141,6 +141,7 @@ If the project need to be proguarded, put the following code into the proguard.p
     public void setCacheCountPerUnitId(int);
     public void setAutoLoadAd(boolean);
 }
+```
 
 # 5 Code Sample
 Click [HERE](https://github.com/zplayads/PlayableAdsDemo-android) to download Demo
