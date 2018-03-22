@@ -2,7 +2,7 @@
 
 
 ## 1.1 Introduction
-This guide is designed for developers who are going to integrate the ZPLAY Ads SDK into their Android Apps via Android Studio.  Please contact support@zplayads.com, if you need any assistance in this work.
+This guide is designed for developers who are going to integrate the ZPLAY Ads SDK into their Android Apps via Android Studio.  Please contact service@zplayads.com, if you need any assistance in this work.
 
 ## 1.2 Development Environment
 - OS：WinAll, Linux, Mac
