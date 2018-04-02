@@ -1,8 +1,8 @@
-# 1 Overview
+# 1 Overview (v2.0.2)
 
 
 ## 1.1 Introduction
-This guide is designed for developers who are going to integrate the ZPLAY Ads SDK into their Android Apps via Android Studio.  Please contact support@zplayads.com, if you need any assistance in this work.
+This guide is designed for developers who are going to integrate the ZPLAY Ads SDK into their Android Apps via Android Studio.  Please contact service@zplayads.com, if you need any assistance in this work.
 
 ## 1.2 Development Environment
 - OS：WinAll, Linux, Mac
@@ -23,7 +23,7 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    compile 'com.playableads:playableads:1.2.7'
+    compile 'com.playableads:playableads:2.0.2'
     
     // Optional dependence
     compile 'com.google.android.gms:play-services-ads:11.0.4'
@@ -41,7 +41,7 @@ When you initialize the SDK, you need to provide your APPID and adUnitID (as pre
 
 Call the method below  to initialize SDK
 ```
-PlayableAds.init(context, APPID, adUnitID)
+PlayableAds.init(context, APPID)
 ```
 
 Note: You can use the following test id when you are testing. Test id won't generate revenue, please use official id when you release your App.
@@ -56,7 +56,7 @@ To pre-load an ad may take several seconds, so it's recommended to initialize th
 Call the following method to pre-load playable ad
 
 ```
-PlayableAds.getInstance().requestPlayableAds(playPreloadingListener)
+PlayableAds.getInstance().requestPlayableAds(adUnitId, playPreloadingListener);
 ```
 You can judge the availability of an ad by this listener callback.
 ```
@@ -71,7 +71,7 @@ public interface PlayPreloadingListener {
 Code Sample：
 
 ```
-PlayableAds.getInstance().requestPlayableAds(new PlayPreloadingListener() {
+PlayableAds.getInstance().requestPlayableAds("androidDemoAdUnit", new PlayPreloadingListener() {
     @Override
     public void onLoadFinished() {
         // Ad preload successfully, call method presentPlayableAd(...)to show playable ad.
@@ -86,7 +86,7 @@ PlayableAds.getInstance().requestPlayableAds(new PlayPreloadingListener() {
 ## 3.3 Show Ads/Obtain Rewards
 When an ad is ready to display, you can show it using following method.
 ```
-PlayableAds.getInstance().presentPlayableAD(this, playLoadingListener)
+PlayableAds.getInstance().presentPlayableAD(adUnitId, playLoadingListener)
 ```
 You can confirm the completed ad show with this listener callback.  
 ```
@@ -100,7 +100,7 @@ public interface PlayLoadingListener {
 
 Code Sample:
 ```
-PlayableAds.getInstance().presentPlayableAD(activity, new PlayLoadingListener() {
+PlayableAds.getInstance().presentPlayableAD("androidDemoAdUnit", new PlayLoadingListener() {
     @Override
     public void playableAdsIncentive() {
         // Ad impression success, use this to judge if the reward should be given. At this point, you can request the next ad
@@ -121,6 +121,7 @@ If the project need to be proguarded, put the following code into the proguard.p
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class com.playableads.PlayableReceiver {*;}
 -keep class com.playableads.constants.StatusCode {*;}
 -keep class com.playableads.MultiPlayLoadingListener {*;}
 -keep class com.playableads.MultiPlayPreloadingListener {*;}
@@ -138,6 +139,8 @@ If the project need to be proguarded, put the following code into the proguard.p
     public void setMultiLoadingListener(com.playableads.MultiPlayLoadingListener);
     public void setMultiPreloadingListener(com.playableads.MultiPlayPreloadingListener);
     public void setCacheCountPerUnitId(int);
+    public void setAutoLoadAd(boolean);
+}
 ```
 
 # 5 Code Sample
@@ -149,6 +152,6 @@ To ensure the ad resource can be successfully loaded, it’s encouraged to reque
 ## 6.2 Permissions
 Make sure your app was granted Phone State permission and Storage Permission, otherwise there may be no ads in your app.
 ## 6.3 Request Next Ad
-* Request failed: Reload in onLoadFailed () method, please determine the reason for the failure, to avoid looping onLoadFailed () method. For example, if there is no network, the onLoadFailed () method will be executed. If you request the next advertisement immediately, advertisement will request failed continuously, causing a waste of resources.
+* PlayableAds sdk will autoload next ad by default, when it failed to load ad they will try again 5 seconds later. You can forbiden autoload action by calling setAutoLoadAd(false).
 
 * Ad displayed completely: Request again in the playableAdsIncentive () method. Ads can not be requested in the onVideoFinished () method, ads are still in a filled state when the onVideoFinished () method is executed, and ads will not be requested again.

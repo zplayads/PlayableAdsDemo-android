@@ -12,18 +12,37 @@
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/autoload_ad"/>
+            <ToggleButton
+                android:id="@+id/switchAutoLoad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+
+
         <EditText
             android:id="@+id/unitId"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/ad_unit_id"
+            android:text="@string/adUnitId"
             android:textColor="#222222"
+            android:hint="@string/ad_unit_id"
             android:textColorHint="#666666" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:gravity="center_horizontal">
 
             <Button
@@ -33,6 +52,11 @@
                 android:onClick="request"
                 android:text="@string/request"
                 android:textAllCaps="false" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/present"

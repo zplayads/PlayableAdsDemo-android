@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">PlayableAdsDemo</string>
     <string name="app_id">输入app_id</string>
     <string name="ad_unit_id">输入广告位id</string>
     <string name="request">请求广告</string>
@@ -13,8 +14,10 @@
     <string name="code_request_error">解析二维码失败</string>
     <string name="open_write_permission">请打开读写权限，否则无法开启优化广告启动速度</string>
     <string name="open_phone_permission">请打开电话权限，否则无法正常获取imei等标志信息，可能导致没有广告收益</string>
-    <string name="load_failed">错误码: %1$d 描述: %2$s</string>
+    <string name="load_failed">状态码: %1$d 描述: %2$s</string>
     <string name="start_request">开始请求广告</string>
     <string name="pre_cache_finished">预加载完成</string>
     <string name="loading_ad">广告加载中…</string>
+    <string name="adUnitId">androidDemoAdUnit</string>
+    <string name="autoload_ad">自动加载广告</string>
 </resources>
