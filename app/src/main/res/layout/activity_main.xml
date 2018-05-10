@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -16,31 +15,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/autoload_ad"/>
+                android:text="@string/autoload_ad" />
+
             <ToggleButton
                 android:id="@+id/switchAutoLoad"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:checked="true" />
         </LinearLayout>
-
 
 
         <EditText
             android:id="@+id/unitId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/ad_unit_id"
             android:text="@string/adUnitId"
             android:textColor="#222222"
-            android:hint="@string/ad_unit_id"
             android:textColorHint="#666666" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:gravity="center_horizontal">
@@ -49,22 +50,57 @@
                 android:id="@+id/request"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="request"
+                android:onClick="requestRewardedVideo"
                 android:text="@string/request"
                 android:textAllCaps="false" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
 
             <Button
                 android:id="@+id/present"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="present"
+                android:onClick="presentRewardedVideo"
                 android:text="@string/present"
                 android:textAllCaps="false" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/interstitialEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="@string/ad_unit_id"
+            android:text="@string/adUnitInterstitial"
+            android:textColor="#222222"
+            android:textColorHint="#666666" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/requestInterstitial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="requestInterstitial"
+                android:text="@string/request_interstitial"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/presentInterstitial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="presentInterstitial"
+                android:text="@string/present"
+                android:textAllCaps="false" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="clearLog"
+                android:text="@string/clear_log" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PlayableAdsDemo</string>
+    <string name="app_name">ZPLAYAdsDemo</string>
     <string name="app_id">输入app_id</string>
     <string name="ad_unit_id">输入广告位id</string>
     <string name="request">请求广告</string>
@@ -8,16 +8,22 @@
     <string name="payload_loaded">请求实体加载完成</string>
     <string name="play_page_loaded">游戏页缓存完成</string>
     <string name="landing_page_loaded">落地页缓存完成</string>
-    <string name="ads_incentive">点击落地页上的叉号</string>
-    <string name="ads_error">错误信息： %1$d -> %2$s</string>
+    <string name="ads_incentive">%1$s: 点击落地页上的叉号(给奖励)</string>
+    <string name="ads_error">%1$s: 错误信息： %2$d -> %3$s</string>
     <string name="open_camera_permission">请打开相机权限，否则无法打开相机</string>
     <string name="code_request_error">解析二维码失败</string>
     <string name="open_write_permission">请打开读写权限，否则无法开启优化广告启动速度</string>
     <string name="open_phone_permission">请打开电话权限，否则无法正常获取imei等标志信息，可能导致没有广告收益</string>
-    <string name="load_failed">状态码: %1$d 描述: %2$s</string>
-    <string name="start_request">开始请求广告</string>
-    <string name="pre_cache_finished">预加载完成</string>
-    <string name="loading_ad">广告加载中…</string>
-    <string name="adUnitId">androidDemoAdUnit</string>
+    <string name="load_failed">%1$s: 状态码: %2$d 描述: %3$s</string>
+    <string name="start_request">%1$s: 开始请求广告</string>
+    <string name="pre_cache_finished">%1$s: 预加载完成</string>
+    <string name="loading_ad">%1$s: 广告加载中…</string>
+    <string name="adUnitId">3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC</string>
     <string name="autoload_ad">自动加载广告</string>
+    <string name="ads_start">%1$s: 开始广告</string>
+    <string name="ads_video_finished">%1$s: 视频展示完成</string>
+    <string name="ads_install_button_clicked">%1$s: 点击安装按钮</string>
+    <string name="ads_ad_closed">%1$s: 广告已关闭</string>
+    <string name="clear_log">清除日志</string>
+    <string name="request_interstitial">请求插屏广告</string>
 </resources>
