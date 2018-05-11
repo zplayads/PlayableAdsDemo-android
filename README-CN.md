@@ -37,7 +37,7 @@ dependencies {
 
 |广告形式|  App_ID  |  Ad_Unit_id|
 |--------|----------|------------|
-|激励视频 |5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
+|可玩广告 |5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
 |插屏广告|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
 
 ## 3.2 请求广告
@@ -70,14 +70,14 @@ PlayableAds.getInstance().requestPlayableAds("3FBEFA05-3A8B-2122-24C7-A87D0BC9FE
 调用```PlayableAds.getInstance().presentPlayableAD(adUnitId, playLoadingListener)```展示广告，listener回调方法说明：
 ```
 public interface PlayLoadingListener {
-    // 激励视频开始播放
+    // 可玩广告开始播放
     void onVideoStart();
 
-    // 激励视频播放结束，开始显示落地页
+    // 可玩广告播放完成，展示落地页
     void onVideoFinished();
 
-    // 完成整个广告事务（游戏展示，游戏试玩和落地页退出）后的回调，表示可以下发奖励。
-    // 注意：插屏广告不走奖励回调
+    // 广告展示完毕，此时可给用户下发奖励
+    // 若您的广告位是插屏广告形式，不会执行此回调
     void playableAdsIncentive();
 
     // 展示过程中出现错误
@@ -97,7 +97,7 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
     @Override
     public void playableAdsIncentive() {
         // 广告展示完成，回到原页面，此时可以给用户奖励了。
-        // 可玩插屏广告不会触发此回调方法
+        // 若您的广告位是插屏广告形式，不会执行此回调
     }
 
     @Override
