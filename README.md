@@ -6,14 +6,18 @@
 
 **2.0.4** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android)
 * 添加点击落地页安装按钮回调
-* 修改缓存失败重试机制
-* 将物料缓存到包内部存储
+* 修改广告重试机制
+* 更换物料存储路径
 * 去除手机状态/读写存储卡/定位等危险权限
 * 修复：不自动打开安装的应用
-* 修复：弱网络环境下物料缓存失败导致可玩页黑屏
+* 修复弱网络下缓存物料失败后，广告无法正常播放问题
+* 物料支持静音播放
+* 
+
+* Fix the material can't play normally when load material failed
 
 **2.0.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.2)
-* 添加可玩插屏广告形式
+* 支持可玩插屏广告形式
 * 添加自动加载广告功能，默认为自动加载
 * 添加缓存重用物料功能
 
