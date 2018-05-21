@@ -20,7 +20,11 @@
 * Fix the material can't play normally when load material failed
 * Support mute playable music
 
-**2.0.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.2)
+**2.0.2** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.2) 
+* 修复物料缓存Bug
+* Fix material cache bug
+
+**2.0.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.0)
 * 支持可玩插屏广告形式
 * 支持广告自动加载广告
 * Support interstitial ad type
