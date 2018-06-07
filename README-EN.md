@@ -46,7 +46,7 @@ PlayableAds.init(context, APPID)
 
 Note: You can use the following test id when you are testing. Test id won't generate revenue, please use official id when you release your App.
 
-|ad_form|  App_ID  |  Ad_Unit_id|
+|ad_type|  App_ID  |  Ad_Unit_id|
 |--------|----------|------------|
 |Rewarded Video |5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
 |Interstitial|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
@@ -133,7 +133,7 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 
 ```void setAutoLoadAd(boolean)```The SDK automatically loads the next advertisement after displayed an ad by default. This method can be used to disable automatic loading of the next advertisement.
 
-```boolean canPresentAd(adUnitId)``` This method determines whether this adUnitId has ads to show
+```boolean canPresentAd(adUnitId)``` This method can determin whether an add has been loaded.
 
 # 4 Proguard
 If the project need to be proguarded, put the following code into the proguard.pro file or a custom file.
@@ -172,5 +172,5 @@ If the project need to be proguarded, put the following code into the proguard.p
 |5002|network error|
 
 
-If you have any problems during the process of access, or if you found any issue in the SDK, please feel free to ask questions. Please refer to [here](https://help.github.com/articles/creating-an-issue). We will deal with your questions in the first place and we are very grateful.
+**NOTE**: If you have any problems during the process of access, or if you found any issue in the SDK, please feel free to ask questions. Please refer to [here](https://help.github.com/articles/creating-an-issue).
 
