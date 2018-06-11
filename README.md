@@ -4,7 +4,15 @@
 
 ## ZPLAY Ads SDK Changelog
 
-**2.0.4** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android)
+**2.0.5**
+* 优化自动加载模式下请求下一广告的时机
+* 可玩广告增加强制关闭功能
+* 修复：适配Android7.0以上安装apk包，测试时要覆盖5.0及以上机型
+* Optimize the time to request the next ad in the automated model.
+* add force close button in the ZPLAYAds ad.
+* fix bug when installing apk file in Android7.0
+
+**2.0.4** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.4)
 * 添加点击落地页安装按钮回调
 * 修改广告重试机制
 * 更换物料存储路径
