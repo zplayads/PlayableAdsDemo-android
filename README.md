@@ -10,7 +10,7 @@
 * 修复Android7.0及以上安装apk包的问题
 * Optimize ad loading method
 * Support ad skipping in rewarded video
-* Fix install apk package issue in Android 7.0 and abouve
+* Fix install apk package issue in Android 7.0 and above
 
 **2.0.4** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.4)
 * 添加点击落地页安装按钮回调
