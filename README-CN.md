@@ -1,4 +1,4 @@
-# 1 概述 v2.0.4
+# 1 概述 v2.0.5
 
 
 ## 1.1 面向读者
@@ -19,7 +19,7 @@ adUnitID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.0.4'
+    compile 'com.playableads:playableads:2.0.5'
     
     // 可选依赖
     compile 'com.google.android.gms:play-services-ads:11.0.4'
@@ -110,8 +110,6 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 ## 3.4 其它方法说明
 
 ```void setAutoLoadAd(boolean)```SDK默认初次请求展示完毕后，自动加载下一条广告，可以通过该方法关闭自动加载下一条广告功能。
-
-```void setCacheCountPerUnitId(int)``` 可以通过该方法设置一个广告位可以提前缓存多个广告，该缓存24小时内有效。
 
 ```boolean canPresentAd(adUnitId)``` 通过该方法判断此广告位是否有可展示的广告
 
