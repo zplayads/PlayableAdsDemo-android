@@ -1,4 +1,4 @@
-# 1 Overview (v2.0.5)
+# 1 Overview (v2.0.6)
 
 
 ## 1.1 Introduction
@@ -23,7 +23,7 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.0.5'
+    compile 'com.playableads:playableads:2.0.6'
     
     // Optional dependence
     compile 'com.google.android.gms:play-services-ads:11.0.4'
