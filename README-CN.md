@@ -1,4 +1,4 @@
-# 1 概述 v2.0.6
+# 1 概述 v2.0.7
 
 
 ## 1.1 面向读者
@@ -19,7 +19,7 @@ adUnitID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.0.6'
+    compile 'com.playableads:playableads:2.0.7'
     
     // 可选依赖
     compile 'com.google.android.gms:play-services-ads:11.0.4'

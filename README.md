@@ -5,7 +5,7 @@
 ## ZPLAY Ads SDK Changelog
 
 **2.0.6** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.6)
-* 支持聚合平台接入时填写channel_id参数，
+* 支持聚合平台接入时填写channel_id参数
 * Support filling in channel_id parameter when mediation integrate ZPLAYAds
 
 
