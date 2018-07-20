@@ -4,12 +4,18 @@
 
 ## ZPLAY Ads SDK Changelog
 
-**2.0.6** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.6)
+**VERSION 2.0.7** 
+* 更新激励视频广告位关闭时弹窗样式
+* 修复已知问题
+* Optimize pop-up style when close ad in rewarded video ad type
+* Fix some known bugs
+
+**VERSION 2.0.6** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.6)
 * 支持聚合平台接入时填写channel_id参数
 * Support filling in channel_id parameter when mediation integrate ZPLAYAds
 
 
-**2.0.5** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.5)
+**VERSION 2.0.5** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.5)
 * 优化广告加载逻辑
 * 激励视频广告位支持广告跳过
 * 修复Android7.0及以上安装apk包的问题
@@ -17,7 +23,7 @@
 * Support ad skipping in rewarded video
 * Fix install apk package issue in Android 7.0 and above
 
-**2.0.4** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.4)
+**VERSION 2.0.4** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.4)
 * 添加点击落地页安装按钮回调
 * 修改广告重试机制
 * 更换物料存储路径
@@ -33,16 +39,16 @@
 * Fix the material can't play normally when load material failed
 * Support mute playable music
 
-**2.0.2** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.2) 
+**VERSION 2.0.2** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.2) 
 * 修复物料缓存Bug
 * Fix material cache bug
 
-**2.0.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.0)
+**VERSION 2.0.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.0)
 * 支持可玩插屏广告形式
 * 支持广告自动加载广告
 * Support interstitial ad type
 * Add ad auto-load function
 
-**1.2.9** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/1.2.9)
+**VERSION 1.2.9** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/1.2.9)
 * 优化广告展示样式
 * Optimize ad experience
