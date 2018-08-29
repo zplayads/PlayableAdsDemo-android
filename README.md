@@ -4,7 +4,13 @@
 
 ## ZPLAY Ads SDK Changelog
 
-**VERSION 2.0.7** 
+**VERSION 2.1.1** 
+* 支持展示新样式可玩素材
+* 修复已知问题
+* Support for displaying new styles of playable ad
+* Fix some known bugs
+
+**VERSION 2.0.7** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.0.7)
 * 更新激励视频广告位关闭时弹窗样式
 * 修复已知问题
 * Optimize pop-up style when close ad in rewarded video ad type
