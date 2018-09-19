@@ -140,7 +140,7 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 
 1. 初始化
 ```
-PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(this, mAppId, mAdUnitId)
+PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, mAppId, mAdUnitId)
 ```
 设置加载广告监听事件
 ```
@@ -165,14 +165,24 @@ mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#eee">
-    <com.playableads.nativead.NativeAdRichView
-        android:id="@+id/adRichView"
+    <com.playableads.nativead.NativeAdExpressView
+        android:id="@+id/nativeAdExpressView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp" />
 </FrameLayout>
 ```
-NativeAdRichView为可玩广告SDK提示用于显示模板广告的自定义View
+NativeTemplateViewHolder示例如下：
+```
+class NativeTemplateViewHolder extends RecyclerView.ViewHolder {
+    NativeAdExpressView nativeTemplateView;
+    NativeTemplateViewHolder(View itemView) {
+        super(itemView);
+        nativeTemplateView = (NativeAdExpressView) itemView.findViewById(R.id.adRichView);
+    }
+}
+```
+NativeAdExpressView是可玩广告SDK提供的自定义View，用于显示模板类广告。
 
 3. 加载广告
 ```mPlayableNativeAd.loadAd()```
@@ -182,7 +192,7 @@ NativeAdRichView为可玩广告SDK提示用于显示模板广告的自定义View
 ```
 NativeAd nativeAd = mNativeAds.get(position);
 if (nativeAd != null) {
-    nativeAd.renderAdView(nativeAdVH.nativeTemplateView);
+    nativeAd.renderAdView(nativeTemplateViewHolder.nativeTemplateView);
 }
 ```
 **如有需要**，可以添加广告展示或点击的监听回调，如下：
@@ -204,7 +214,7 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
 
 1. 初始化
 ```
-PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(this, mAppId, mAdUnitId)
+PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(mContext, mAppId, mAdUnitId)
 ```
 
 2. 添加NativeAdRender
@@ -235,8 +245,8 @@ mPlayableNativeAd.setAdRender(nativeAdRender);
  mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     @Override
     public void onNativeAdLoaded(NativeAd nativeAd) {
-        // 已请求到广告之后，创建广告View，mNativeView为广告View的父View，如示例Demo中的LinearLayout
-        View view = nativeAd.createAdView(NativeAdActivity.this, mNativeView);
+        // 已请求到广告之后，创建广告View，mNativeView为广告View的父容器，如示例Demo中的LinearLayout
+        View view = nativeAd.createAdView(YourActivity.this, mNativeView);
         nativeAd.renderAdView(view);
         mNativeView.addView(view);
     }
@@ -292,13 +302,16 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.PlayableNativeAd {
     public <methods>;
 }
+-keep class com.playableads.PlayableNativeExpressAd {
+    public <methods>;
+}
 -keep class com.playableads.nativead.NativeAdRender {
     public <methods>;
 }
 -keep class com.playableads.nativead.ViewBinder.NativeViewHolder {
     public <methods>;
 }
--keep class com.playableads.nativead.NativeAdRichView {
+-keep class com.playableads.nativead.NativeAdExpressView {
     public <methods>;
 }
 -keep class com.playableads.nativead.NativeAdLoadListener {*;}
