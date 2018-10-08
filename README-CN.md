@@ -37,7 +37,7 @@ adUnitID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.1.1'
+    compile 'com.playableads:playableads:2.2.0'
     
     // 可选依赖
     compile 'com.google.android.gms:play-services-ads:11.0.4'
@@ -54,8 +54,8 @@ dependencies {
 |--------|----------|------------|
 |激励视频|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
 |插屏广告|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
-|原生模板|xxx|xxx|
-|原生非模板|xxx|xxx|
+|原生模板|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
+|原生非模板|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
 ## 3.1 激励视频/插屏广告
 ### 3.1.1 初始化SDK
 调用```PlayableAds.init(context, APPID)```代码初始化SDK
@@ -134,30 +134,32 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 
 ## 3.2 可玩原生
 
-可玩原生广告分为模板类原生广告和非模板类广告。使用模板类广告可以快速便捷的创建可玩原生广告，并且可以从平台动态调整广告样式。但是，模板广告样式有限，可能会遇到模板样式与您的app主题不一致的情况，此时，您可以使用非模板类定制符合您app主题的可玩原生广告。相对于模板类广告，非模板类广告设置较为复杂，主要原因是需要编写自定义布局以及设置布局与各数据对应关系。以下为原生广告接入步骤，如果有不明白的地方可以查看示例Demo中的相关部分来了解如何接入可玩原生广告。
+您接入原生广告时可以选择接入托管渲染或者自渲染
 
-### 3.2.1 原生模板形式
+### 3.2.1 原生广告接入（托管渲染）
 
-1. 初始化
+> 托管渲染是ZPLAY Ads推出的自动渲染广告样式的原生广告。此种方式简化了原生广告的接入流程，您无需处理广告渲染相关事宜，使得原生广告的接入更加便捷。
+
+ a. 初始化
 ```
-PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, mAppId, mAdUnitId)
+PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(this, mAppId, mAdUnitId)
 ```
 设置加载广告监听事件
 ```
 mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     @Override
     public void onNativeAdLoaded(NativeAd nativeAd) {
-        // 已请求到广告，将nativeAd放入Adapter data中备用
+        // 广告请求成功，将nativeAd放入Adapter data中备用
     }
 
     @Override
     public void onNativeAdFailed(int errorCode, String message) {
-        // 广告请求失败，可根据errorCode查看文档以便快速定位问题
+        // 广告请求失败，可根据errorCode查看本文档“状态码及含义”部分，以便快速定位问题
     }
 });
 ```
 
-2. 创建模板布局
+b. 创建模板布局
 以RecyclerView为信息流载体为例，创建NativeTemplateViewHolder itemView布局如下：
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -165,44 +167,36 @@ mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#eee">
-    <com.playableads.nativead.NativeAdExpressView
-        android:id="@+id/nativeAdExpressView"
+    <com.playableads.nativead.NativeAdRichView
+        android:id="@+id/adRichView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp" />
 </FrameLayout>
 ```
-NativeTemplateViewHolder示例如下：
-```
-class NativeTemplateViewHolder extends RecyclerView.ViewHolder {
-    NativeAdExpressView nativeTemplateView;
-    NativeTemplateViewHolder(View itemView) {
-        super(itemView);
-        nativeTemplateView = (NativeAdExpressView) itemView.findViewById(R.id.adRichView);
-    }
-}
-```
-NativeAdExpressView是可玩广告SDK提供的自定义View，用于显示模板类广告。
+NativeAdRichView为可玩广告SDK提示用于显示模板广告的自定义View
 
-3. 加载广告
-```mPlayableNativeAd.loadAd()```
+c. 加载广告
 
-4. 渲染模板
-在RecyclerView Adapter的```onBindViewHolder(ViewHolder holder, int position)```回调中执行
+调用此方法```mPlayableNativeAd.loadAd()```进行广告加载
+
+d. 渲染广告
+
+在RecyclerView Adapter中，执行此回调```onBindViewHolder(ViewHolder holder, int position)```
 ```
 NativeAd nativeAd = mNativeAds.get(position);
 if (nativeAd != null) {
-    nativeAd.renderAdView(nativeTemplateViewHolder.nativeTemplateView);
+    nativeAd.renderAdView(nativeAdVH.nativeTemplateView);
 }
 ```
-**如有需要**，可以添加广告展示或点击的监听回调，如下：
+e. 广告展示或点击的监听回调
+
 ```
 nativeAd.setNativeEventListener(new NativeEventListener() {
     @Override
     public void onAdImpressed(View view) {
         // 广告被展示
     }
-
     @Override
     public void onAdClicked(View view) {
         // 广告被点击
@@ -210,22 +204,26 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
 });
 ```
 
-### 3.2.2 原生非模板形式
+### 3.2.2 原生广告接入(自渲染)
 
-1. 初始化
+>原生自渲染广告是ZPLAY Ads推出的一种高度灵活的原生广告。您可根据自己的需求自行拼接广告样式，使广告展示更契合您的应用。
+
+a. 初始化
+
 ```
-PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(mContext, mAppId, mAdUnitId)
+PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(this, mAppId, mAdUnitId)
 ```
 
-2. 添加NativeAdRender
+b. 添加NativeAdRender用以设置广告布局
 
 在自定义布局中，包含以下元素
-    - mainImageId: 用来显示广告大图的ImageView的id
-    - iconImageId: 用来显示广告小图的ImageView的id
-    - titleId: 用来显示广告标题的TextView的id
-    - textId: 用来显示广告描述的TextView的id
-    - buttonId: 用来显示”免安装试玩“的Button的id
-    - palyerId: 用来播放原生视频广告的VideoView的id
+
+    - mainImageId: 用来显示广告大图ImageView的id
+    - iconImageId: 用来显示广告iconImageView的id
+    - titleId: 用来显示广告标题TextView的id
+    - textId: 用来显示广告描述TextView的id
+    - buttonId: 用来显示“免安装试玩”Button的id
+    - palyerId: 用来播放原生视频广告VideoView的id
 ```
 ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_ad_layout)
                 .mainImageId(R.id.nal_image)
@@ -238,15 +236,15 @@ ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_ad_layout)
 NativeAdRender nativeAdRender = new NativeAdRender(viewBinder);
 mPlayableNativeAd.setAdRender(nativeAdRender);
 ```
-**注意：** 非模板类原生广告必须设置Render类，不然广告无法正常显示
+**注意：** 非模板类原生广告必须设置Render类，否则广告无法正常显示
 
-3. 添加请求监听方法及创建广告View
+c. 添加请求监听方法及创建广告View
 ```
  mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     @Override
     public void onNativeAdLoaded(NativeAd nativeAd) {
-        // 已请求到广告之后，创建广告View，mNativeView为广告View的父容器，如示例Demo中的LinearLayout
-        View view = nativeAd.createAdView(YourActivity.this, mNativeView);
+        // 已请求到广告之后，创建广告View，mNativeView为广告View的父View，如示例Demo中的LinearLayout
+        View view = nativeAd.createAdView(NativeAdActivity.this, mNativeView);
         nativeAd.renderAdView(view);
         mNativeView.addView(view);
     }
@@ -257,7 +255,7 @@ mPlayableNativeAd.setAdRender(nativeAdRender);
     }
 });
 ```
-4. 添加展示监听方法（可选）
+d. 添加展示监听方法（可选）
 
 **如有需要**，可以添加广告展示或点击的监听回调，如下：
 ```
@@ -273,7 +271,7 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
     }
 });
 ```
-5. 请求广告
+e. 请求广告
 ```
 mPlayableNativeAd.loadAd()
 ```
@@ -302,16 +300,13 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.PlayableNativeAd {
     public <methods>;
 }
--keep class com.playableads.PlayableNativeExpressAd {
-    public <methods>;
-}
 -keep class com.playableads.nativead.NativeAdRender {
     public <methods>;
 }
 -keep class com.playableads.nativead.ViewBinder.NativeViewHolder {
     public <methods>;
 }
--keep class com.playableads.nativead.NativeAdExpressView {
+-keep class com.playableads.nativead.NativeAdRichView {
     public <methods>;
 }
 -keep class com.playableads.nativead.NativeAdLoadListener {*;}
