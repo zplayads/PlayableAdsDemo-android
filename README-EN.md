@@ -1,4 +1,4 @@
-   * [1 Overview (v2.2.0)](#1-overview-v220))
+   * [1 Overview (v2.2.0)](#1-overview-v220)
       * [1.1 Introduction](#11-introduction)
       * [1.2 Development Environment](#12-development-environment)
       * [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
@@ -13,7 +13,7 @@
          * [3.1.4 Other Methods](#314-other-methods)
       * [3.2 Native Ad](#32-native-ad)
          * [3.2.1 Access Native Ad (Managed Rendering)](#321-access-native-ad-managed-rendering)
-         * [3.2.2 Access Native Ad (Self Rendering)](#321-access-native-ad-self-rendering)
+         * [3.2.2 Access Native Ad (Self Rendering)](#322-access-native-ad-self-rendering)
       * [* State Code and Description](#-state-code-and-description)
 
 # 1 Overview (v2.2.0)
