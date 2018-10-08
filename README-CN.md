@@ -12,8 +12,8 @@
          * [3.1.3 展示广告](#313-展示广告)
          * [3.1.4 其它方法说明](#314-其它方法说明)
       * [3.2 可玩原生](#32-可玩原生)
-         * [3.2.1 原生模板形式](#321-原生模板形式)
-         * [3.2.2 原生非模板形式](#322-原生非模板形式)
+         * [3.2.1 原生广告接入（托管渲染）](#321-原生广告接入托管渲染)
+         * [3.2.2 原生广告接入（自渲染）](#322-原生广告接入自渲染)
    * [4 参数配置](#4-参数配置)
       * [* 状态码及含意](#-状态码及含意)
 
@@ -54,8 +54,8 @@ dependencies {
 |--------|----------|------------|
 |激励视频|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
 |插屏广告|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
-|原生模板|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
-|原生非模板|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
+|原生托管渲染|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
+|原生自渲染|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
 ## 3.1 激励视频/插屏广告
 ### 3.1.1 初始化SDK
 调用```PlayableAds.init(context, APPID)```代码初始化SDK
@@ -140,7 +140,7 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 
 > 托管渲染是ZPLAY Ads推出的自动渲染广告样式的原生广告。此种方式简化了原生广告的接入流程，您无需处理广告渲染相关事宜，使得原生广告的接入更加便捷。
 
- a. 初始化
+a. 初始化
 ```
 PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, mAppId, mAdUnitId)
 ```
@@ -160,6 +160,7 @@ mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
 ```
 
 b. 创建模板布局
+
 以RecyclerView为信息流载体为例，创建NativeTemplateViewHolder itemView布局如下：
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -235,7 +236,7 @@ ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_ad_layout)
 NativeAdRender nativeAdRender = new NativeAdRender(viewBinder);
 mPlayableNativeAd.setAdRender(nativeAdRender);
 ```
-**注意：** 非模板类原生广告必须设置Render类，否则广告无法正常显示
+**注意：** 原生自渲染广告必须设置Render类，否则广告无法正常显示
 
 c. 添加请求监听方法及创建广告View
 ```
