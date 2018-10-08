@@ -1,4 +1,4 @@
-   * [1 Overview](#1-overview)
+   * [1 Overview (v2.2.0)](#1-overview-v220))
       * [1.1 Introduction](#11-introduction)
       * [1.2 Development Environment](#12-development-environment)
       * [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
@@ -6,14 +6,14 @@
       * [2.1 Add Dependence](#21-add-dependence)
       * [2.2 Sync Project](#22-sync-project)
    * [3 Access Code](#3-access-code)
-      * [3.1 Rewarded Video/Interstitial Ad](#31-rewarded-video/interstitial-ad)
+      * [3.1 Rewarded Video/Interstitial Ad](#31-rewarded-videointerstitial-ad)
          * [3.1.1 Initialize SDK](#311-initialize-sdk)
          * [3.1.2 Request Ad](#312-request-ad)
-         * [3.1.3 Show Ads/Obtain Rewards](#313-show-ads/obtain-rewards)
+         * [3.1.3 Show Ads/Obtain Rewards](#313-show-adsobtain-rewards)
          * [3.1.4 Other Methods](#314-other-methods)
       * [3.2 Native Ad](#32-native-ad)
-         * [3.2.1 Access Native Ad (Managed Rendering)](#321-access-native-ad-(managed-rendering))
-         * [3.2.2 Access Native Ad (Self Rendering)](#321-access-native-ad-(self-rendering))
+         * [3.2.1 Access Native Ad (Managed Rendering)](#321-access-native-ad-managed-rendering)
+         * [3.2.2 Access Native Ad (Self Rendering)](#321-access-native-ad-self-rendering)
       * [* State Code and Description](#-state-code-and-description)
 
 # 1 Overview (v2.2.0)
@@ -52,7 +52,6 @@ dependencies {
 Click "Sync Project with Gradle Files" button on menu bar to download dependence files.
 
 # 3 Access Code
-It may take several seconds to pre-load an ad, so it’s recommended to initialize the SDK and load ads as early as possible. When you initialize the SDK, you need to provide your APPID and adUnitID (as previously registered on ZPLAYAds.com) into the relevant places. 
 
 Note: You can use the following test id when you are testing. Test id won't generate revenue. Please use official id when you release your App.
 
@@ -65,8 +64,7 @@ Note: You can use the following test id when you are testing. Test id won't gene
 
 ## 3.1 Rewarded Video/Interstitial Ad
 ### 3.1.1 Initialize SDK
-
-When you initialize the SDK, you need to provide your APPID and adUnitID (as previously registered on en.zplayads.com) into the marked places. 
+When you initialize the SDK, you need to provide your APPID and adUnitID (as previously registered on zplayads.com) into the marked places. 
 
 Call the method below to initialize SDK
 ```
@@ -171,7 +169,7 @@ a. Initialize
 ```
 PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, mAppId, mAdUnitId)
 ```
-Set listening event of loading ads.
+Set listener event of loading ads:
  ```
 mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     @Override
@@ -217,7 +215,7 @@ if (nativeAd != null) {
     nativeAd.renderAdView(nativeTemplateViewHolder.nativeTemplateView);
 }
 ```
-e. Listening callback of ad impression/click
+e. Listener callback of ad impression/click
 
 ```
 nativeAd.setNativeEventListener(new NativeEventListener() {
@@ -233,8 +231,6 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
 ```
 
 ### 3.2.2 Access Native Ad (Self Rendering)
-
-Managed rendering is a rendering mode of native ad. In this mode, ad will be rendered automatically. This approach simplifies the process of accessing native ad, and you can access native ad more convient since you do not need to deal with ad rendering related issues.
 
 > Self rendering is another rendering mode, which has high flexibility, of native ad. You can splice ad style according to your needs to make ad more suitable for your app.  
 
@@ -268,7 +264,7 @@ mPlayableNativeAd.setAdRender(nativeAdRender);
 ```
 **Attention:** NativeAdRender must be set in self rendering mode. Otherwise, ad can not be displayed properly.
 
-c. Add Request Listener Method and Creat ad's View
+c. Add Request Listener Method and Creat Ad's View
 ```
  mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     @Override
@@ -285,9 +281,9 @@ c. Add Request Listener Method and Creat ad's View
     }
 });
 ```
-d. Add Impression Listener Method (Optional)添加展示监听方法（可选）
+d. Add Impression Listener Method (Optional)
 
-**If necessery**, you can add listening callback of ad's impression/click as follows: 
+**If necessery**, you can add listener callback of ad's impression/click as follows: 
 ```
 nativeAd.setNativeEventListener(new NativeEventListener() {
     @Override
