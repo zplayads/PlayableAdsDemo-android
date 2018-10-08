@@ -142,7 +142,7 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 
  a. 初始化
 ```
-PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(this, mAppId, mAdUnitId)
+PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, mAppId, mAdUnitId)
 ```
 设置加载广告监听事件
 ```
@@ -167,14 +167,13 @@ b. 创建模板布局
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#eee">
-    <com.playableads.nativead.NativeAdRichView
-        android:id="@+id/adRichView"
+    <com.playableads.nativead.NativeAdExpressView
+        android:id="@+id/nativeAdExpressView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp" />
 </FrameLayout>
 ```
-NativeAdRichView为可玩广告SDK提示用于显示模板广告的自定义View
 
 c. 加载广告
 
@@ -186,7 +185,7 @@ d. 渲染广告
 ```
 NativeAd nativeAd = mNativeAds.get(position);
 if (nativeAd != null) {
-    nativeAd.renderAdView(nativeAdVH.nativeTemplateView);
+    nativeAd.renderAdView(nativeTemplateViewHolder.nativeTemplateView);
 }
 ```
 e. 广告展示或点击的监听回调
@@ -211,7 +210,7 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
 a. 初始化
 
 ```
-PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(this, mAppId, mAdUnitId)
+PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(mContext, mAppId, mAdUnitId)
 ```
 
 b. 添加NativeAdRender用以设置广告布局
@@ -243,8 +242,8 @@ c. 添加请求监听方法及创建广告View
  mPlayableNativeAd.setNativeAdLoadListener(new NativeAdLoadListener() {
     @Override
     public void onNativeAdLoaded(NativeAd nativeAd) {
-        // 已请求到广告之后，创建广告View，mNativeView为广告View的父View，如示例Demo中的LinearLayout
-        View view = nativeAd.createAdView(NativeAdActivity.this, mNativeView);
+        // 已请求到广告之后，创建广告View，mNativeView为广告View的父容器，如示例Demo中的LinearLayout
+        View view = nativeAd.createAdView(YourActivity.this, mNativeView);
         nativeAd.renderAdView(view);
         mNativeView.addView(view);
     }
@@ -295,9 +294,11 @@ mPlayableNativeAd.loadAd()
     public synchronized static com.playableads.PlayableAds init(android.content.Context, java.lang.String);
     public <methods>;
 }
-
-# ZPLAYAds native
+# ZPLAYAds native ad
 -keep class com.playableads.PlayableNativeAd {
+    public <methods>;
+}
+-keep class com.playableads.PlayableNativeExpressAd {
     public <methods>;
 }
 -keep class com.playableads.nativead.NativeAdRender {
@@ -306,7 +307,7 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.nativead.ViewBinder.NativeViewHolder {
     public <methods>;
 }
--keep class com.playableads.nativead.NativeAdRichView {
+-keep class com.playableads.nativead.NativeAdExpressView {
     public <methods>;
 }
 -keep class com.playableads.nativead.NativeAdLoadListener {*;}
