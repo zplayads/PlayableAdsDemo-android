@@ -1,181 +1,145 @@
 package com.zplay.playable.playableadsdemo;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.ScrollView;
+import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
-import com.playableads.PlayPreloadingListener;
-import com.playableads.PlayableAds;
-import com.playableads.SimplePlayLoadingListener;
+import com.playableads.demo.R;
+import com.zplay.playable.playableadsdemo.sample.NativeAdRecyclerViewSample;
+import com.zplay.playable.playableadsdemo.sample.NativeAdSample;
+import com.zplay.playable.playableadsdemo.sample.PlayableAdSample;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class MainActivity extends Activity {
-    private static final String TAG = "MainActivity";
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private static final String APP_ID = "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF";
-    private static final String AD_UNIT_ID = "3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC";
-    private static final String Ad_UNIT_ID_INTERSTITIAL = "19393189-C4EB-3886-60B9-13B39407064E";
+import static com.zplay.playable.playableadsdemo.MainActivity.AdType.INTERSTITIAL;
+import static com.zplay.playable.playableadsdemo.MainActivity.AdType.NATIVE_MANAGED;
+import static com.zplay.playable.playableadsdemo.MainActivity.AdType.NATIVE_SELF;
+import static com.zplay.playable.playableadsdemo.MainActivity.AdType.STATISTICS;
+import static com.zplay.playable.playableadsdemo.MainActivity.AdType.VIDEO;
 
-    private TextView info;
-    private ScrollView mScrollView;
+/**
+ * Description:
+ * <p>
+ * Created by lgd on 2018/9/26.
+ */
 
-    private PlayableAds mAds;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        info = findViewById(R.id.text);
-        mScrollView = findViewById(R.id.scrollView);
-
-        mAds = PlayableAds.init(this, APP_ID);
-
-        ((ToggleButton) findViewById(R.id.switchAutoLoad)).setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+public class MainActivity extends ToolBarActivity {
+    enum AdType {
+        VIDEO("Video", new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mAds.setAutoLoadAd(isChecked);
-                if (isChecked) {
-                    requestAds();
-                }
+            public void onClick(View v) {
+                PlayableAdSample.launch(v.getContext(), false);
+            }
+        }),
+        INTERSTITIAL("Interstitial", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PlayableAdSample.launch(v.getContext(), true);
+            }
+        }),
+        NATIVE_SELF("Native(Self Rendering)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NativeAdSample.launch(v.getContext());
+            }
+        }),
+        NATIVE_MANAGED("Native(Managed Rendering)", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NativeAdRecyclerViewSample.launch(v.getContext());
+            }
+        }),
+        STATISTICS("Statistics", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StatisticsActivity.launch(v.getContext());
             }
         });
-        requestAds();
-    }
 
-    private void requestAds() {
-        requestRewardedVideo(null);
-        requestInterstitial(null);
-    }
+        private String name;
+        private View.OnClickListener clickListener;
 
-    public void requestRewardedVideo(View view) {
-        mAds.requestPlayableAds(AD_UNIT_ID, new PlayPreloadingListener() {
-
-            @Override
-            public void onLoadFinished() {
-                setInfo(getString(R.string.pre_cache_finished, getShortId(AD_UNIT_ID)));
-            }
-
-            @Override
-            public void onLoadFailed(int errorCode, String msg) {
-                setInfo(getString(R.string.load_failed, getShortId(AD_UNIT_ID), errorCode, msg));
-            }
-        });
-        setInfo(getString(R.string.start_request, getShortId(AD_UNIT_ID)));
-    }
-
-    public void presentRewardedVideo(View view) {
-        mAds.presentPlayableAD(AD_UNIT_ID, new SimplePlayLoadingListener() {
-            @Override
-            public void onVideoStart() {
-                setInfo(getString(R.string.ads_start, getShortId(AD_UNIT_ID)));
-            }
-
-            @Override
-            public void onVideoFinished() {
-                setInfo(getString(R.string.ads_video_finished, getShortId(AD_UNIT_ID)));
-            }
-
-            @Override
-            public void playableAdsIncentive() {
-                setInfo(getString(R.string.ads_incentive, getShortId(AD_UNIT_ID)));
-            }
-
-            @Override
-            public void onLandingPageInstallBtnClicked() {
-                setInfo(getString(R.string.ads_install_button_clicked, getShortId(AD_UNIT_ID)));
-            }
-
-            @Override
-            public void onAdClosed() {
-                setInfo(getString(R.string.ads_ad_closed, getShortId(AD_UNIT_ID)));
-            }
-
-            @Override
-            public void onAdsError(int errorCode, String msg) {
-                setInfo(getString(R.string.ads_error, getShortId(AD_UNIT_ID), errorCode, msg));
-            }
-        });
-    }
-
-    public void requestInterstitial(View view) {
-        mAds.requestPlayableAds(Ad_UNIT_ID_INTERSTITIAL, new PlayPreloadingListener() {
-            @Override
-            public void onLoadFinished() {
-                setInfo(String.format(getString(R.string.pre_cache_finished), getShortId(Ad_UNIT_ID_INTERSTITIAL)));
-            }
-
-            @Override
-            public void onLoadFailed(int errorCode, String msg) {
-                setInfo(getString(R.string.load_failed, getShortId(Ad_UNIT_ID_INTERSTITIAL), errorCode, msg));
-            }
-        });
-        setInfo(getString(R.string.start_request, getShortId(Ad_UNIT_ID_INTERSTITIAL)));
-    }
-
-    public void presentInterstitial(View view) {
-        mAds.presentPlayableAD(Ad_UNIT_ID_INTERSTITIAL, new SimplePlayLoadingListener() {
-
-            @Override
-            public void onVideoStart() {
-                setInfo(getString(R.string.ads_start, getShortId(Ad_UNIT_ID_INTERSTITIAL)));
-            }
-
-            @Override
-            public void onVideoFinished() {
-                setInfo(getString(R.string.ads_video_finished, getShortId(Ad_UNIT_ID_INTERSTITIAL)));
-            }
-
-            @Override
-            public void onLandingPageInstallBtnClicked() {
-                setInfo(getString(R.string.ads_install_button_clicked, getShortId(Ad_UNIT_ID_INTERSTITIAL)));
-            }
-
-            @Override
-            public void onAdClosed() {
-                setInfo(getString(R.string.ads_ad_closed, getShortId(Ad_UNIT_ID_INTERSTITIAL)));
-            }
-
-            @Override
-            public void onAdsError(int errorCode, String msg) {
-                setInfo(getString(R.string.ads_error, getShortId(Ad_UNIT_ID_INTERSTITIAL), errorCode, msg));
-            }
-
-        });
-    }
-
-    String getShortId(String id) {
-        if (TextUtils.isEmpty(id)) {
-            return "";
-        } else if (id.length() < 7) {
-            return id;
-        } else {
-            return id.substring(0, 3) + "..." + id.substring(id.length() - 3);
+        AdType(String name, View.OnClickListener clickListener) {
+            this.name = name;
+            this.clickListener = clickListener;
         }
     }
 
+    private static List<AdType> sAdTypeArray =
+            Collections.unmodifiableList(Arrays.asList(VIDEO, INTERSTITIAL, NATIVE_SELF, NATIVE_MANAGED, STATISTICS));
 
-    private void setInfo(final String msg) {
-        Log.d(TAG, msg);
-        runOnUiThread(new Runnable() {
+    @BindView(R.id.ad_list)
+    RecyclerView mAdList;
 
-            @Override
-            public void run() {
-                if (info != null) {
-                    info.append(msg + "\n\n");
-                }
-                mScrollView.fullScroll(View.FOCUS_DOWN);
-            }
-        });
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        showSettingsButton();
+        ButterKnife.bind(this);
+        mAdList.setAdapter(new AdListAdapter(sAdTypeArray));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        DividerItemDecoration dividerItemDecoration =
+                new DividerItemDecoration(mAdList.getContext(), linearLayoutManager.getOrientation());
+        mAdList.setLayoutManager(linearLayoutManager);
+        mAdList.addItemDecoration(dividerItemDecoration);
     }
 
-    public void clearLog(View view) {
-        info.setText("");
+    static class AdListAdapter extends RecyclerView.Adapter<AdListVH> {
+
+        List<AdType> mData;
+
+        AdListAdapter(List<AdType> data) {
+            mData = data;
+        }
+
+
+        @Override
+        public AdListVH onCreateViewHolder(ViewGroup parent, int viewType) {
+            final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ad_list, parent, false);
+            return new AdListVH(view);
+        }
+
+        @Override
+        public void onBindViewHolder(AdListVH holder, int position) {
+            holder.adName.setText(mData.get(position).name);
+            holder.itemView.setOnClickListener(mData.get(position).clickListener);
+        }
+
+        @Override
+        public int getItemCount() {
+            if (mData != null) {
+                return mData.size();
+            }
+            return 0;
+        }
+    }
+
+    static class AdListVH extends RecyclerView.ViewHolder {
+        @BindView(R.id.ad_name)
+        TextView adName;
+
+        AdListVH(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+    }
+
+    public static void launch(Context context) {
+        Intent i = new Intent(context, MainActivity.class);
+        context.startActivity(i);
     }
 }
-
