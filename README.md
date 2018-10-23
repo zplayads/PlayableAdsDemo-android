@@ -4,7 +4,15 @@
 
 ## ZPLAY Ads SDK Changelog
 
-**VERSION 2.1.1** 
+**VERSION2.2.1**
+* 增加原生广告形式，支持自渲染及托管渲染两种渲染方式
+* 支持点击后打开国内安卓应用市场
+* 优化内部逻辑
+* Add native ad type, support manage rendering and self rendering
+* Support open Android app market when click ad
+* Optimize internal logic
+
+**VERSION 2.1.1** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.1.1)
 * 支持展示新样式可玩素材
 * 修复已知问题
 * Support for displaying new styles of playable ad
