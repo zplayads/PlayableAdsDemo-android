@@ -1,21 +1,28 @@
-   * [1 概述](#1-概述)
-      * [1.1 面向读者](#11-面向读者)
-      * [1.2 开发环境](#12-开发环境)
-      * [1.3 术语介绍](#13-术语介绍)
-   * [2 SDK接入](#2-sdk接入)
-      * [2.1 添加依赖](#21-添加依赖)
-      * [2.2 同步项目](#22-同步项目)
-   * [3 代码接入](#3-代码接入)
-      * [3.1 激励视频/插屏广告](#31-激励视频插屏广告)
-         * [3.1.1 初始化SDK](#311-初始化sdk)
-         * [3.1.2 请求广告](#312-请求广告)
-         * [3.1.3 展示广告](#313-展示广告)
-         * [3.1.4 其它方法说明](#314-其它方法说明)
-      * [3.2 可玩原生](#32-可玩原生)
-         * [3.2.1 原生广告接入（托管渲染）](#321-原生广告接入托管渲染)
-         * [3.2.2 原生广告接入（自渲染）](#322-原生广告接入自渲染)
-   * [4 参数配置](#4-参数配置)
-      * [* 状态码及含意](#-状态码及含意)
+* [1 概述](#1-概述)
+    * [1.1 面向读者](#11-面向读者)
+    * [1.2 开发环境](#12-开发环境)
+    * [1.3 术语介绍](#13-术语介绍)
+* [2 SDK接入](#2-sdk接入)
+    * [2.1 添加依赖](#21-添加依赖)
+    * [2.2 同步项目](#22-同步项目)
+* [3 代码接入](#3-代码接入)
+    * [3.1 激励视频](#31-激励视频)
+        * [3.1.1 初始化SDK](#311-初始化sdk)
+        * [3.1.2 请求广告](#312-请求广告)
+        * [3.1.3 展示广告](#313-展示广告)
+        * [3.1.4 其它方法说明](#314-其它方法说明)
+    * [3.2 插屏广告](#32-插屏广告)
+        * [3.2.1 初始化SDK](#321-初始化sdk)
+        * [3.2.2 请求广告](#322-请求广告)
+        * [3.2.3 展示广告](#323-展示广告)
+        * [3.2.4 其它方法说明](#324-其它方法说明)
+    * [3.3 可玩原生](#33-可玩原生)
+        * [3.3.1 原生广告接入（托管渲染）](#331-原生广告接入托管渲染)
+        * [3.3.2 原生广告接入（自渲染）](#332-原生广告接入自渲染)
+* [4 其它](#4-其它)
+    * [4.1 混淆设置](#41-混淆设置)
+    * [4.2 状态码及含意](#42-状态码及含意)
+    * [4.3 FAQ](#43-faq)
 
 # 1 概述
 
@@ -24,23 +31,23 @@
 
 ## 1.2 开发环境
 - 操作系统：WinAll, Linux, Mac
-- 开发环境：Android Studio 2.x
+- 开发环境：Android Studio 2.0及以上
 - 部署目标：Android 4.0及以上
 
 ## 1.3 术语介绍
-APPID: 应用广告，是您在ZPLAYAds平台创建媒体时获取的ID；
+APP_ID: 应用广告，是您在ZPLAYAds平台创建媒体时获取的ID；
 
-adUnitID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的ID。
+AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的ID。
 
 # 2 SDK接入
 ## 2.1 添加依赖
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.2.1'
+    compile 'com.playableads:playableads:2.3.0'
     
     // 可选依赖
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
 }
 ```
 
@@ -50,17 +57,20 @@ dependencies {
 # 3 代码接入
 注：您在测试中可使用如下id进行测试，测试id不会产生收益，应用上线时请使用您申请的正式id。
 
-|广告形式|  App_ID  |  Ad_Unit_id|
+|广告形式|  APP_ID  |  AD_UNIT_ID|
 |--------|----------|------------|
 |激励视频|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
 |插屏广告|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
 |原生托管渲染|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
 |原生自渲染|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
-## 3.1 激励视频/插屏广告
-### 3.1.1 初始化SDK
-调用```PlayableAds.init(context, APPID)```代码初始化SDK
+## 3.1 激励视频
+### 3.1.1 初始化激励视频SDK
+调用```PlayableAds.init(context, APP_ID)```代码初始化激励视频SDK，如
+```
+PlayableAds mRewardVideo = PlayableAds.init(context, "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF");
+```
 ### 3.1.2 请求广告
-调用```PlayableAds.getInstance().requestPlayableAds(adUnitId, playPreloadingListener)```加载广告，listener回调方法说明：
+调用```mRewardVideo.requestPlayableAds(AD_UNIT_ID, playPreloadingListener)```加载广告，listener回调方法说明：
 ```
 public interface PlayPreloadingListener {
     // 广告加载完成
@@ -72,10 +82,10 @@ public interface PlayPreloadingListener {
 
 请求示例：
 ```
-PlayableAds.getInstance().requestPlayableAds("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayPreloadingListener() {
+mRewardVideo.requestPlayableAds("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayPreloadingListener() {
     @Override
     public void onLoadFinished() {
-        // 广告加载完成，可以调用presentPlayableAd(...)方法展示广告了
+        // 广告加载完成，可以调用presentPlayableAD(...)方法展示广告了
     }
 
     @Override
@@ -86,7 +96,7 @@ PlayableAds.getInstance().requestPlayableAds("3FBEFA05-3A8B-2122-24C7-A87D0BC9FE
 ```
 
 ### 3.1.3 展示广告
-调用```PlayableAds.getInstance().presentPlayableAD(adUnitId, playLoadingListener)```展示广告，listener回调方法说明：
+调用```mRewardVideo.presentPlayableAD(AD_UNIT_ID, playLoadingListener)```展示广告，listener回调方法说明：
 ```
 public interface PlayLoadingListener {
     // 可玩广告开始播放
@@ -95,8 +105,7 @@ public interface PlayLoadingListener {
     // 可玩广告播放完成，展示落地页
     void onVideoFinished();
 
-    // 广告展示完毕，此时可给用户下发奖励
-    // 若您的广告位是插屏广告形式，不会执行此回调
+    // 广告奖励回调，此时可给用户下发奖励
     void playableAdsIncentive();
 
     // 展示过程中出现错误
@@ -111,18 +120,24 @@ public interface PlayLoadingListener {
 ```
 展示示例：
 ```
-PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayLoadingListener() {
+mRewardVideo.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayLoadingListener() {
+
+    @Override
+    void onVideoStart(){
+        // 可玩广告开始展示，可以在此处处理应用逻辑，比如关闭应用声音，以避免应用声音与广告声音重叠。
+    }
 
     @Override
     public void playableAdsIncentive() {
         // 广告展示完成，回到原页面，此时可以给用户奖励了。
-        // 若您的广告位是插屏广告形式，不会执行此回调
     }
 
-    @Override
-    public void onAdsError(int errorCode, String message) {
-        // 广告展示失败，根据错误码和错误信息定位问题
+     @Override
+    void onAdClosed(){
+        // 可玩广告展示结束，可以在此处处理应用逻辑，比如打开应用声音。
     }
+
+    ...
 });
 ```
 
@@ -130,19 +145,102 @@ PlayableAds.getInstance().presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEE
 
 ```void setAutoLoadAd(boolean)```SDK默认初次请求展示完毕后，自动加载下一条广告，可以通过该方法关闭自动加载下一条广告功能。
 
-```boolean canPresentAd(adUnitId)``` 通过该方法判断此广告位是否有可展示的广告
+```boolean canPresentAd(AD_UNIT_ID)``` 通过该方法判断此广告位是否有可展示的广告
 
-## 3.2 可玩原生
+完整代码示例请参考[PlayableAdSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/PlayableAdSample.java)
+
+## 3.2 插屏广告
+### 3.2.1 初始化插屏SDK
+调用```PlayableInterstitial.init(context, APP_ID)```代码初始化插屏SDK
+如
+```
+PlayableInterstitial mInterstitial = PlayableInterstitial.init(context, "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF");
+```
+### 3.2.2 请求广告
+调用```mInterstitial.requestPlayableAds(AD_UNIT_ID, playPreloadingListener)```加载广告，listener回调方法说明：
+```
+public interface PlayPreloadingListener {
+    // 广告加载完成
+    void onLoadFinished();
+    // 广告加载失败
+    void onLoadFailed(int errorCode, String msg);
+}
+```
+
+请求示例：
+```
+mInterstitial.requestPlayableAds("19393189-C4EB-3886-60B9-13B39407064E", new PlayPreloadingListener() {
+    @Override
+    public void onLoadFinished() {
+        // 广告加载完成，可以调用presentPlayableAd(...)方法展示广告了
+    }
+
+    @Override
+    public void onLoadFailed(int errorCode, String message) {
+        // 广告加载失败，根据错误码和错误信息定位问题
+    }
+})
+```
+
+### 3.2.3 展示广告
+调用```mInterstitial.presentPlayableAd(AD_UNIT_ID, playLoadingListener)```展示广告，listener回调方法说明：
+```
+public interface PlayLoadingListener {
+    // 可玩广告开始播放
+    void onVideoStart();
+
+    // 可玩广告播放完成，展示落地页
+    void onVideoFinished();
+
+    // 注意: 插屏广告不触发此回调
+    void playableAdsIncentive();
+
+    // 展示过程中出现错误
+    void onAdsError(int code, String msg);
+
+    // 用户点击安装按钮
+    void onLandingPageInstallBtnClicked();
+
+    // 整个广告事务完成
+    void onAdClosed();
+}
+```
+展示示例：
+```
+mInterstitial.presentPlayableAd("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayLoadingListener() {
+    @Override
+    void onVideoStart(){
+        // 可玩广告开始展示，可以在此处处理应用逻辑，比如关闭应用声音，以避免应用声音与广告声音重叠。
+    }
+
+    @Override
+    void onAdClosed(){
+        // 可玩广告展示结束，可以在此处处理应用逻辑，比如打开应用声音。
+    }
+
+    ...
+});
+```
+
+### 3.2.4 其它方法说明
+
+```void setAutoload(boolean)```SDK默认初次请求展示完毕后，自动加载下一条广告，可以通过该方法关闭自动加载下一条广告功能。
+
+```boolean canPresentAd(AD_UNIT_ID)``` 通过该方法判断此广告位是否有可展示的广告
+
+完整代码示例请参考[InterstitialSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/InterstitialSample.java)
+
+## 3.3 可玩原生
 
 您接入原生广告时可以选择接入托管渲染或者自渲染
 
-### 3.2.1 原生广告接入（托管渲染）
+### 3.3.1 原生广告接入（托管渲染）
 
 > 托管渲染是ZPLAY Ads推出的自动渲染广告样式的原生广告。此种方式简化了原生广告的接入流程，您无需处理广告渲染相关事宜，使得原生广告的接入更加便捷。
 
 a. 初始化
 ```
-PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, mAppId, mAdUnitId)
+PlayableNativeExpressAd mPlayableNativeAd = new PlayableNativeExpressAd(mContext, APP_ID, AD_UNIT_ID)
 ```
 设置加载广告监听事件
 ```
@@ -204,14 +302,16 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
 });
 ```
 
-### 3.2.2 原生广告接入(自渲染)
+完整代码示例请参考[NativeAdRecyclerViewSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/NativeAdRecyclerViewSample.java)
+
+### 3.3.2 原生广告接入（自渲染）
 
 >原生自渲染广告是ZPLAY Ads推出的一种高度灵活的原生广告。您可根据自己的需求自行拼接广告样式，使广告展示更契合您的应用。
 
 a. 初始化
 
 ```
-PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(mContext, mAppId, mAdUnitId)
+PlayableNativeAd mPlayableNativeAd = new PlayableNativeAd(mContext, APP_ID, AD_UNIT_ID)
 ```
 
 b. 添加NativeAdRender用以设置广告布局
@@ -276,7 +376,10 @@ e. 请求广告
 mPlayableNativeAd.loadAd()
 ```
 
-# 4 参数配置
+完整代码示例请参考[NativeAdSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/NativeAdSample.java)
+
+# 4 其它
+## 4.1 混淆设置
 如果项目做混淆，请将以下代码放到proguard-rules.pro文件
 ```
 # ZPLAYAds
@@ -293,6 +396,11 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.PlayableAds {
     public static com.playableads.PlayableAds getInstance();
     public synchronized static com.playableads.PlayableAds init(android.content.Context, java.lang.String);
+    public <methods>;
+}
+-keep class com.playableads.PlayableInterstitial {
+    public static com.playableads.PlayableInterstitial getInstance();
+    public synchronized static com.playableads.PlayableInterstitial init(android.content.Context, java.lang.String);
     public <methods>;
 }
 # ZPLAYAds native ad
@@ -319,7 +427,7 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.nativead.ViewBinder$* {*;}
 ```
 
-## * 状态码及含意
+## 4.2 状态码及含意
 
 |状态码|描述|补充|
 |-----|----|---|
@@ -335,5 +443,5 @@ mPlayableNativeAd.loadAd()
 |5001|context is null|context为空，检查是否正确传入context值|
 |5002|network error|网络错误|
 
-
-在接入过程中如果遇到问题，或者可玩SDK有什么不足之处，[欢迎提issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=%5B%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%5D&body=%E8%AF%B7%E4%BF%AE%E6%94%B9%E4%B8%8A%E6%96%B9%E7%9A%84%E6%A0%87%E9%A2%98%E6%9D%A5%E7%AE%80%E8%A6%81%E6%8F%8F%E8%BF%B0%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%B9%B6%E6%8A%8A%E8%AF%A6%E7%BB%86%E7%9A%84%E5%86%85%E5%AE%B9%E5%86%99%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AF%9D%E8%AF%B7%E9%99%84%E4%B8%8A%E6%BA%90%E4%BB%A3%E7%A0%81)，我们会在第一时间处理您提出的问题，万分感谢。
+## 4.3 FAQ
+在接入过程中如果遇到问题，或者可玩SDK有什么不足之处，[欢迎提issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=%5B%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%5D&body=%E8%AF%B7%E4%BF%AE%E6%94%B9%E4%B8%8A%E6%96%B9%E7%9A%84%E6%A0%87%E9%A2%98%E6%9D%A5%E7%AE%80%E8%A6%81%E6%8F%8F%E8%BF%B0%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%B9%B6%E6%8A%8A%E8%AF%A6%E7%BB%86%E7%9A%84%E5%86%85%E5%AE%B9%E5%86%99%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AF%9D%E8%AF%B7%E9%99%84%E4%B8%8A%E9%94%99%E8%AF%AF%E6%97%A5%E5%BF%97)，我们会在第一时间处理您提出的问题，万分感谢。
