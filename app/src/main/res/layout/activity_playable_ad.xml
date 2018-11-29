@@ -14,6 +14,14 @@
         android:focusableInTouchMode="true"
         android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/scan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:onClick="scan"
+            android:src="@drawable/ic_baseline_camera_alt_24px" />
+
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -93,16 +101,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/scan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:minWidth="100dp"
-            android:onClick="scan"
-            android:text="@string/scan"
-            android:textAllCaps="false" />
 
         <Button
             android:id="@+id/request"

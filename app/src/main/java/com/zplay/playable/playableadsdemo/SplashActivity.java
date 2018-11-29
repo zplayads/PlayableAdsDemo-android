@@ -13,8 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.playableads.demo.R;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -37,7 +35,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        mTextView.setText(String.format("%s\n%s", mTextView.getText(), "2.2.1"));
+        mTextView.setText(String.format("%s\n%s", mTextView.getText(), "2.3.0"));
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override
@@ -61,6 +59,8 @@ public class SplashActivity extends Activity {
             if (TextUtils.equals(permissions[i], Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     createStatisticsTag();
+                    startMainActivity();
+                    finish();
                 }
             }
         }

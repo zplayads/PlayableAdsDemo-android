@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.zplay.playable.playableadsdemo.R;
 import com.zplay.playable.playableadsdemo.ToolBarActivity;
 import com.zplay.playable.playableadsdemo.util.LogTextView;
 import com.zplay.playable.playableadsdemo.util.UserConfig;
 import com.playableads.PlayableNativeAd;
-import com.playableads.demo.R;
 import com.playableads.nativead.NativeAd;
 import com.playableads.nativead.NativeAdLoadListener;
 import com.playableads.nativead.NativeAdRender;
@@ -25,6 +25,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
+import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
+
 /**
  * Description: self render native ad sample activity
  * <p>
@@ -32,9 +34,8 @@ import butterknife.OnTextChanged;
  */
 
 public class NativeAdSample extends ToolBarActivity {
-    private static final String NATIVE_AD_APP_ID = "D0135452-245C-DA20-1584-81DC6BF9FD06";
-    private static final String NATIVE_AD_UNIT_ID = "92B07941-7773-722C-E9CA-46AECECBB1AE";
-    private static final String[] sAppAndUnitId = new String[]{NATIVE_AD_APP_ID, NATIVE_AD_UNIT_ID};
+    private static final String NATIVE_AD_UNIT_ID = "BB8452AD-06E7-140B-00DC-FD6CB6B40FAA";
+    private static final String[] sAppAndUnitId = new String[]{APP_ID, NATIVE_AD_UNIT_ID};
 
     private PlayableNativeAd mPlayableNativeAd;
     @BindView(R.id.amn_native_placer)
@@ -135,7 +136,7 @@ public class NativeAdSample extends ToolBarActivity {
             return;
         }
         if (TextUtils.isEmpty(s)) {
-            sAppAndUnitId[0] = NATIVE_AD_APP_ID;
+            sAppAndUnitId[0] = APP_ID;
         } else {
             sAppAndUnitId[0] = s.toString();
         }
