@@ -210,7 +210,7 @@ public interface PlayLoadingListener {
 mInterstitial.presentPlayableAd("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayLoadingListener() {
     @Override
     void onVideoStart(){
-        // 可玩广告开始展示，可以在此处处理应用逻辑，比如关闭应用声音，以避免应用声音与广告声音重叠。
+        // 可玩广告开始展示，可以在此处处理应用逻辑，比如关闭应用声音，以避免应用声音与广告声音重叠。
     }
 
     @Override
