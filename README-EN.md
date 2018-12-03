@@ -1,28 +1,32 @@
-   * [1 Overview](#1-overview)
-      * [1.1 Introduction](#11-introduction)
-      * [1.2 Development Environment](#12-development-environment)
-      * [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
-   * [2 SDK Integration](#2-sdk-integration)
-      * [2.1 Add dependencies](#21-add-dependencies)
-      * [2.2 Sync Project](#22-sync-project)
-   * [3 Integrates ZPLAYAds SDK](#3-integrates-zplayads-sdk)
-      * [3.1 Reward Video](#31-reward-video)
-         * [3.1.1 Initialize Reward Video SDK](#311-initialize-reward-video-sdk)
-         * [3.1.2 Request Ad](#312-request-ad)
-         * [3.1.3 Show Ads/Obtain Rewards](#313-show-adsobtain-rewards)
-         * [3.1.4 Other Methods](#314-other-methods)
-      * [3.2 Interstitial](#32-interstitial)
-         * [3.2.1 Initialize interstitial SDK](#321-initialize-interstitial-sdk)
-         * [3.2.2 Request Ad](#322-request-ad)
-         * [3.2.3 Show Ads](#323-show-ads)
-         * [3.2.4 Other Methods](#324-other-methods)
-      * [3.3 Native Ad](#33-native-ad)
-         * [3.3.1 Integrate Native Ad (Managed Rendering)](#331-integrate-native-ad-managed-rendering)
-         * [3.3.2 Integrate Native Ad (Self Rendering)](#332-integrate-native-ad-self-rendering)
-   * [4 Others](#4-others)
-      * [4.1 Sets proguard file](#41-sets-proguard-file)
-      * [4.2 State Code and Description](#42-state-code-and-description)
-      * [4.3 FAQ](#43-faq)
+- [1 Overview](#1-overview)
+    - [1.1 Introduction](#11-introduction)
+    - [1.2 Development Environment](#12-development-environment)
+    - [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
+- [2 Imports ZPLAYAds SDK](#2-imports-zplayads-sdk)
+    - [2.1 Android Studio (recommend)](#21-android-studio-recommend)
+        - [2.1.1 Add dependencies](#211-add-dependencies)
+        - [2.1.2 Sync Project](#212-sync-project)
+    - [2.2 Eclipse](#22-eclipse)
+        - [2.2.1 Imports SDK jar](#221-imports-sdk-jar)
+        - [2.2.2 Regitsters ZPLAYAds SDK componets](#222-regitsters-zplayads-sdk-componets)
+- [3 Integrates ZPLAYAds SDK](#3-integrates-zplayads-sdk)
+    - [3.1 Reward Video](#31-reward-video)
+        - [3.1.1 Initialize Reward Video SDK](#311-initialize-reward-video-sdk)
+        - [3.1.2 Request Ad](#312-request-ad)
+        - [3.1.3 Show Ads/Obtain Rewards](#313-show-adsobtain-rewards)
+        - [3.1.4 Other Methods](#314-other-methods)
+    - [3.2 Interstitial](#32-interstitial)
+        - [3.2.1 Initialize interstitial SDK](#321-initialize-interstitial-sdk)
+        - [3.2.2 Request Ad](#322-request-ad)
+        - [3.2.3 Show Ads](#323-show-ads)
+        - [3.2.4 Other Methods](#324-other-methods)
+    - [3.3 Native Ad](#33-native-ad)
+        - [3.3.1 Integrate Native Ad (Managed Rendering)](#331-integrate-native-ad-managed-rendering)
+        - [3.3.2 Integrate Native Ad (Self Rendering)](#332-integrate-native-ad-self-rendering)
+- [4 Others](#4-others)
+    - [4.1 Sets proguard file](#41-sets-proguard-file)
+    - [4.2 State Code and Description](#42-state-code-and-description)
+    - [4.3 FAQ](#43-faq)
 
 # 1 Overview
 ## 1.1 Introduction
@@ -40,10 +44,11 @@ APP_ID: An ID for your App, obtained when setting up the App for monetization wi
 
 AD_UNIT_ID: An ID for a specific ad placement within your App, as generated for your Apps within your account on the ZPLAY Ads website. 
 
-# 2 SDK Integration
+# 2 Imports ZPLAYAds SDK
 Please follow the steps below to add the SDK. 
 
-## 2.1 Add dependencies
+## 2.1 Android Studio (recommend)
+### 2.1.1 Add dependencies
 Add following codes in build.gradle file of project
 ```
 dependencies {
@@ -54,8 +59,49 @@ dependencies {
 }
 ```
 
-## 2.2 Sync Project
+### 2.1.2 Sync Project
 Click "Sync Project with Gradle Files" button on the Android Studio's menu bar to download dependence files.
+
+
+## 2.2 Eclipse 
+### 2.2.1 Imports SDK jar
+Puts [zplayads.jar](./eclipseJar) into eclipse project's libs，android configure the build path. The main tips as fellows:
+1. Right click the project on eclipse, select Build Path and Configure Build Path...;
+2. Chooses Libraries table, click Add JARs... button;
+3. Select the jar file.
+
+NOTE: The jar contains class and assets fils, it works on eclipse. Don't try put the jar into Android Studio project or Unity project.
+### 2.2.2 Regitsters ZPLAYAds SDK componets
+Registers necessary componets into AndroidManifest
+1. permissions
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+```
+2. activity and receiver
+```
+<activity
+    android:name="com.playableads.presenter.PlayableADActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<activity
+    android:name="com.playableads.presenter.NativeAdLandingPageActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<receiver android:name="com.playableads.PlayableReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+    </intent-filter>
+</receiver>
+```
 
 # 3 Integrates ZPLAYAds SDK
 

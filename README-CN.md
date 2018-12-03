@@ -3,16 +3,20 @@
     * [1.2 开发环境](#12-开发环境)
     * [1.3 术语介绍](#13-术语介绍)
 * [2 SDK接入](#2-sdk接入)
-    * [2.1 添加依赖](#21-添加依赖)
-    * [2.2 同步项目](#22-同步项目)
+    * [2.1 Android Studio (推荐)](#21-android-studio-推荐)
+        * [2.1.1 添加依赖](#211-添加依赖)
+        * [2.1.2 同步项目](#212-同步项目)
+    * [2.2 Eclipse](#22-eclipse)
+        * [2.2.1 导入 SDK jar 文件](#221-导入-sdk-jar-文件)
+        * [2.2.2 注册 ZPLAYAds SDK 组件](#222-注册-zplayads-sdk-组件)
 * [3 代码接入](#3-代码接入)
     * [3.1 激励视频](#31-激励视频)
-        * [3.1.1 初始化SDK](#311-初始化sdk)
+        * [3.1.1 初始化激励视频SDK](#311-初始化激励视频sdk)
         * [3.1.2 请求广告](#312-请求广告)
         * [3.1.3 展示广告](#313-展示广告)
         * [3.1.4 其它方法说明](#314-其它方法说明)
     * [3.2 插屏广告](#32-插屏广告)
-        * [3.2.1 初始化SDK](#321-初始化sdk)
+        * [3.2.1 初始化插屏SDK](#321-初始化插屏sdk)
         * [3.2.2 请求广告](#322-请求广告)
         * [3.2.3 展示广告](#323-展示广告)
         * [3.2.4 其它方法说明](#324-其它方法说明)
@@ -40,7 +44,8 @@ APP_ID: 应用广告，是您在ZPLAYAds平台创建媒体时获取的ID；
 AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的ID。
 
 # 2 SDK接入
-## 2.1 添加依赖
+## 2.1 Android Studio (推荐)
+### 2.1.1 添加依赖
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
@@ -51,8 +56,48 @@ dependencies {
 }
 ```
 
-## 2.2 同步项目
+### 2.1.2 同步项目
 点击菜单栏“同步”(Sync Project with Gradle Files)按钮，下载依赖
+
+## 2.2 Eclipse 
+### 2.2.1 导入 SDK jar 文件
+将 [zplayads.jar](./eclipseJar) 放到 eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
+1. 在 eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口；
+2. 选择 Libraries 标签，点击 Add JARs... 按钮；
+3. 选择下载好的 jar 文件，完成导入。
+
+注意：zplayads.jar 文件包含 class 文件与 assets 文件，在 eclipse 中可以直接使用，直接放到 Android Studio 或 Unity 中可能会出现找不到资源等问题。
+### 2.2.2 注册 ZPLAYAds SDK 组件
+向 AndroidManifest.xml 中注册 ZPLAYAds SDK 需要的组件
+1. 权限
+```
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+<uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+```
+2. activity 与 receiver
+```
+<activity
+    android:name="com.playableads.presenter.PlayableADActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<activity
+    android:name="com.playableads.presenter.NativeAdLandingPageActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
+    android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<receiver android:name="com.playableads.PlayableReceiver">
+    <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+    </intent-filter>
+</receiver>
+```
 
 # 3 代码接入
 注：您在测试中可使用如下id进行测试，测试id不会产生收益，应用上线时请使用您申请的正式id。
