@@ -2,12 +2,12 @@
     - [1.1 Introduction](#11-introduction)
     - [1.2 Development Environment](#12-development-environment)
     - [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
-- [2 Imports ZPLAYAds SDK](#2-imports-zplayads-sdk)
+- [2 Import ZPLAYAds SDK](#2-import-zplayads-sdk)
     - [2.1 Android Studio (recommend)](#21-android-studio-recommend)
         - [2.1.1 Add dependencies](#211-add-dependencies)
         - [2.1.2 Sync Project](#212-sync-project)
     - [2.2 Eclipse](#22-eclipse)
-        - [2.2.1 Imports SDK jar](#221-imports-sdk-jar)
+        - [2.2.1 Import SDK jar](#221-import-sdk-jar)
         - [2.2.2 Regitsters ZPLAYAds SDK componets](#222-regitsters-zplayads-sdk-componets)
 - [3 Integrates ZPLAYAds SDK](#3-integrates-zplayads-sdk)
     - [3.1 Reward Video](#31-reward-video)
@@ -44,7 +44,7 @@ APP_ID: An ID for your App, obtained when setting up the App for monetization wi
 
 AD_UNIT_ID: An ID for a specific ad placement within your App, as generated for your Apps within your account on the ZPLAY Ads website. 
 
-# 2 Imports ZPLAYAds SDK
+# 2 Import ZPLAYAds SDK
 Please follow the steps below to add the SDK. 
 
 ## 2.1 Android Studio (recommend)
@@ -64,13 +64,14 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 
 
 ## 2.2 Eclipse 
-### 2.2.1 Imports SDK jar
-Puts [zplayads.jar](./eclipseJar) into eclipse project's libs，android configure the build path. The main tips as fellows:
+### 2.2.1 Import SDK jar
+Import [zplayads.jar](./eclipseJar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
 1. Right click the project on eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.
 
-NOTE: The jar contains class and assets fils, it works on eclipse. Don't try put the jar into Android Studio project or Unity project.
+NOTE: zplayads.jar only can be used in Eclipse, if your IDE is Android Studio please refer to 2.1 part.
+
 ### 2.2.2 Regitsters ZPLAYAds SDK componets
 Registers necessary componets into AndroidManifest
 1. permissions

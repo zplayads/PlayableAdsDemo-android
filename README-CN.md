@@ -66,7 +66,8 @@ dependencies {
 2. 选择 Libraries 标签，点击 Add JARs... 按钮；
 3. 选择下载好的 jar 文件，完成导入。
 
-注意：zplayads.jar 文件包含 class 文件与 assets 文件，在 eclipse 中可以直接使用，直接放到 Android Studio 或 Unity 中可能会出现找不到资源等问题。
+注：zplayads.jar此文件在Eclipse环境中可直接使用，若您开发环境为Android Studio请参考2.1接入方法。
+
 ### 2.2.2 注册 ZPLAYAds SDK 组件
 向 AndroidManifest.xml 中注册 ZPLAYAds SDK 需要的组件
 1. 权限
