@@ -11,8 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.playableads.demo.R;
-
 /**
  * Description:
  * <p>

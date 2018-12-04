@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.playableads.demo.R;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;

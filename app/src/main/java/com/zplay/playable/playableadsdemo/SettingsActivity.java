@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.playableads.demo.R;
 import com.zplay.playable.playableadsdemo.util.UserConfig;
 
 import java.io.File;

@@ -49,6 +49,10 @@ google-services.json
 # vscode
 .vscode
 
+# eclipse
+.classpath
+.project
+
 # Freeline
 freeline.py
 freeline/

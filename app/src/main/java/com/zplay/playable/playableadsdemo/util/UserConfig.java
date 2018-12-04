@@ -12,8 +12,11 @@ import android.content.SharedPreferences;
 
 public class UserConfig {
     private static final String SP_NAME = "zp.user.config";
+    private static final String AUTOLOAD = "a";
     private static final String CHANNEL_ID = "b";
     private static final String TEST_ENV = "c";
+    private static final String AUTOLOAD_INTERSTITIAL = "d";
+
 
     private SharedPreferences.Editor editor;
     private SharedPreferences sp;
@@ -32,6 +35,21 @@ public class UserConfig {
         editor = sp.edit();
     }
 
+    public boolean setAutoload(boolean autoload) {
+        return editor.putBoolean(AUTOLOAD, autoload).commit();
+    }
+
+    public boolean isAutoload() {
+        return sp.getBoolean(AUTOLOAD, false);
+    }
+
+    public boolean setInterstitialAutoload(boolean autoload) {
+        return editor.putBoolean(AUTOLOAD_INTERSTITIAL, autoload).commit();
+    }
+
+    public boolean isInterstitialAutoload() {
+        return sp.getBoolean(AUTOLOAD_INTERSTITIAL, false);
+    }
 
     public boolean setChannelId(String channelId) {
         return editor.putString(CHANNEL_ID, channelId).commit();
