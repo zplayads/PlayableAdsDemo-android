@@ -196,9 +196,7 @@ mRewardVideo.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayL
     void onAdClosed(){
         // Ad has been closed, if you turn off the app's sound in video start, you can turn it on in here
     }
-
-    ...
-});
+);
 ```
 
 ### 3.1.4 Other Methods
@@ -291,8 +289,6 @@ mInterstitial.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new Play
     void onAdClosed(){
         // Ad has been closed, if you turn off the app's sound in video start, you can turn it on in here
     }
-
-    ...
 });
 ```
 
@@ -398,7 +394,7 @@ Following elements are included in custom layout:
     - titleId: id that used to display TextView of ad's title
     - textId: id that used to display TextView of ad's description
     - buttonId: id that used to display "INSTALL NOW" Button
-    - palyerId: id that used to play VideoView of ad's video
+    - playerId: id that used to play VideoView of ad's video
 ```
 ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_ad_layout)
                 .mainImageId(R.id.nal_image)
