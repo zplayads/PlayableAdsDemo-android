@@ -170,7 +170,7 @@ mRewardVideo.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayL
 
     @Override
     void onVideoStart(){
-        // 可玩广告开始展示，可以在此处处理应用逻辑，比如关闭应用声音，以避免应用声音与广告声音重叠。
+        // 可玩广告开始展示，可以在此处处理应用逻辑，比如关闭应用声音，以避免应用声音与广告声音重叠。
     }
 
     @Override
@@ -183,7 +183,6 @@ mRewardVideo.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayL
         // 可玩广告展示结束，可以在此处处理应用逻辑，比如打开应用声音。
     }
 
-    ...
 });
 ```
 
@@ -369,7 +368,7 @@ b. 添加NativeAdRender用以设置广告布局
     - titleId: 用来显示广告标题TextView的id
     - textId: 用来显示广告描述TextView的id
     - buttonId: 用来显示“免安装试玩”Button的id
-    - palyerId: 用来播放原生视频广告VideoView的id
+    - playerId: 用来播放原生视频广告VideoView的id
 ```
 ViewBinder viewBinder = new ViewBinder.Builder(R.layout.native_ad_layout)
                 .mainImageId(R.id.nal_image)
