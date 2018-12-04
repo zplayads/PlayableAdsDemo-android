@@ -7,7 +7,7 @@
 
 **VERSION2.3.0**
 * 支持物料可以重播
-* 解决调用present方法不当引起的物料多次展示问题
+* 解决调用present方法不当引起的物料展示问题
 * Support materials can be replayed
 * Fix the material display problem caused by call present method inproperly* 
 
