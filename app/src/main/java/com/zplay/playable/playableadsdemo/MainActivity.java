@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.playableads.demo.R;
+import com.zplay.playable.playableadsdemo.sample.InterstitialSample;
 import com.zplay.playable.playableadsdemo.sample.NativeAdRecyclerViewSample;
 import com.zplay.playable.playableadsdemo.sample.NativeAdSample;
 import com.zplay.playable.playableadsdemo.sample.PlayableAdSample;
@@ -37,17 +37,18 @@ import static com.zplay.playable.playableadsdemo.MainActivity.AdType.VIDEO;
  */
 
 public class MainActivity extends ToolBarActivity {
+    public static final String APP_ID = "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF";
     enum AdType {
         VIDEO("Video", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlayableAdSample.launch(v.getContext(), false);
+                PlayableAdSample.launch(v.getContext());
             }
         }),
         INTERSTITIAL("Interstitial", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlayableAdSample.launch(v.getContext(), true);
+                InterstitialSample.launch(v.getContext());
             }
         }),
         NATIVE_SELF("Native(Self Rendering)", new View.OnClickListener() {

@@ -10,7 +10,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.widget.EditText;
@@ -24,16 +23,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.playableads.PlayLoadingListener;
-import com.zplay.playable.playableadsdemo.R;
-import com.zplay.playable.playableadsdemo.ToolBarActivity;
-import com.zplay.playable.playableadsdemo.util.Encrypter;
-import com.zplay.playable.playableadsdemo.util.UserConfig;
 import com.playableads.PlayPreloadingListener;
 import com.playableads.PlayableAds;
+import com.playableads.PlayableInterstitial;
 import com.playableads.SimplePlayLoadingListener;
 import com.playableads.constants.BusinessConstants;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.zplay.playable.playableadsdemo.R;
+import com.zplay.playable.playableadsdemo.ToolBarActivity;
+import com.zplay.playable.playableadsdemo.util.Encrypter;
+import com.zplay.playable.playableadsdemo.util.UserConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,9 +48,14 @@ import butterknife.OnTextChanged;
 
 import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
 
-public class PlayableAdSample extends ToolBarActivity {
+/**
+ * Description:
+ * <p>
+ * Created by lgd on 2018/10/22.
+ */
 
-    private static final String AD_UNIT_ID = "3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC";
+public class InterstitialSample extends ToolBarActivity {
+    private static final String AD_UNIT_ID = "19393189-C4EB-3886-60B9-13B39407064E";
     private static final int REQUEST_CODE = 2;
     private static String sCurrentAppId = APP_ID;
     private static String sCurrentUnitId = AD_UNIT_ID;
@@ -72,10 +77,10 @@ public class PlayableAdSample extends ToolBarActivity {
     @BindView(R.id.clear2)
     View mClear2;
 
-    PlayableAds mRewardVideo;
     UserConfig mConfig;
     RequestQueue mRequestQueue;
 
+    PlayableInterstitial mInterstitial;
 
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -94,21 +99,21 @@ public class PlayableAdSample extends ToolBarActivity {
         showUpAction();
         showSettingsButton();
 
-        mRewardVideo = PlayableAds.init(this, APP_ID);
+        mInterstitial = PlayableInterstitial.init(this, APP_ID);
         mConfig = UserConfig.getInstance(this);
 
         mRequestQueue = Volley.newRequestQueue(this);
 
         mAppIdEdit.setText(sCurrentAppId);
-        setTitle("Video");
+        setTitle("Interstitial");
         mUnitIdEdit.setText(sCurrentUnitId);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mRewardVideo.setChannelId(mConfig.getChannelId());
-        mRewardVideo.setAutoLoadAd(mConfig.isAutoload());
+        mInterstitial.setChannelId(mConfig.getChannelId());
+        mInterstitial.setAutoload(mConfig.isInterstitialAutoload());
     }
 
     @Override
@@ -141,7 +146,8 @@ public class PlayableAdSample extends ToolBarActivity {
 
         setInfo(unitId + " " + getString(R.string.start_request));
 
-        mRewardVideo.requestPlayableAds(unitId, newRequestListener(unitId));
+        mInterstitial.requestPlayableAds(unitId, newRequestListener(unitId));
+
     }
 
     private PlayPreloadingListener newRequestListener(final String unitId) {
@@ -158,13 +164,6 @@ public class PlayableAdSample extends ToolBarActivity {
                 setInfo(unitId + " " + msg);
             }
         };
-    }
-
-    @OnClick(R.id.present)
-    public void present() {
-        String editText = mUnitIdEdit.getText().toString().trim();
-        final String adUnitId = TextUtils.isEmpty(editText) ? AD_UNIT_ID : editText;
-        mRewardVideo.presentPlayableAD(adUnitId, newPlayListener(adUnitId));
     }
 
     private PlayLoadingListener newPlayListener(final String adUnitId) {
@@ -200,6 +199,39 @@ public class PlayableAdSample extends ToolBarActivity {
                 setInfo(adUnitId + " " + msg);
             }
         };
+    }
+
+    @OnClick(R.id.present)
+    public void present() {
+        String editText = mUnitIdEdit.getText().toString().trim();
+        final String adUnitId = TextUtils.isEmpty(editText) ? AD_UNIT_ID : editText;
+        mInterstitial.presentPlayableAd(adUnitId, new SimplePlayLoadingListener() {
+
+            @Override
+            public void onVideoStart() {
+                setInfo(adUnitId + " " + getString(R.string.ads_video_start));
+            }
+
+            @Override
+            public void onVideoFinished() {
+                setInfo(adUnitId + " " + getString(R.string.ads_video_finished));
+            }
+
+            @Override
+            public void onLandingPageInstallBtnClicked() {
+                setInfo(adUnitId + " " + getString(R.string.landing_page_install_btn_clicked));
+            }
+
+            @Override
+            public void onAdClosed() {
+                setInfo(adUnitId + " " + getString(R.string.ad_present_closed));
+            }
+
+            @Override
+            public void onAdsError(int code, String msg) {
+                setInfo(adUnitId + " " + msg);
+            }
+        });
     }
 
     @OnTextChanged(R.id.am_url_edit)
@@ -251,7 +283,6 @@ public class PlayableAdSample extends ToolBarActivity {
     }
 
     private void setInfo(final String msg) {
-        Log.d("cccBBB", "=> " + msg);
         runOnUiThread(new Runnable() {
 
             @Override
@@ -270,7 +301,7 @@ public class PlayableAdSample extends ToolBarActivity {
                 return;
             }
         }
-        Intent intent = new Intent(PlayableAdSample.this, CaptureActivity.class);
+        Intent intent = new Intent(InterstitialSample.this, CaptureActivity.class);
         startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -288,7 +319,7 @@ public class PlayableAdSample extends ToolBarActivity {
                     final String result = bundle.getString(CodeUtils.RESULT_STRING);
                     testAdvertising(result);
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(PlayableAdSample.this, R.string.code_request_error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(InterstitialSample.this, R.string.code_request_error, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -300,14 +331,14 @@ public class PlayableAdSample extends ToolBarActivity {
         final ValueCallback<JSONObject> callback = new ValueCallback<JSONObject>() {
             @Override
             public void onReceiveValue(JSONObject value) {
-                mRewardVideo.requestPlayableAds(value, new PlayPreloadingListener() {
+                mInterstitial.requestPlayableAds(value, new PlayPreloadingListener() {
                     @Override
                     public void onLoadFinished() {
                         final String tag = Encrypter.doMD5Encode16(String.valueOf(this.hashCode()));
                         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                mRewardVideo.presentPlayableAD(tag, null);
+                                mInterstitial.presentPlayableAd(tag, null);
                             }
                         }, 500);
                     }
@@ -323,6 +354,8 @@ public class PlayableAdSample extends ToolBarActivity {
         if (srcId.startsWith("https://") || srcId.startsWith("http://")) {
             JSONObject jsonObject = new JSONObject();
             try {
+                jsonObject.put("scb", 1);
+                jsonObject.put("sgsb", 3);
                 jsonObject.putOpt("response_target", "preview");
                 jsonObject.putOpt("video_page_url", srcId);
             } catch (JSONException ignore) {
@@ -335,6 +368,8 @@ public class PlayableAdSample extends ToolBarActivity {
                 public void onResponse(JSONObject jo) {
                     try {
                         jo.putOpt("response_target", "preview");
+                        jo.put("scb", 1);
+                        jo.put("sgsb", 3);
                     } catch (JSONException ignore) {
                     }
                     callback.onReceiveValue(jo);
@@ -365,7 +400,7 @@ public class PlayableAdSample extends ToolBarActivity {
     }
 
     public static void launch(Context ctx) {
-        Intent i = new Intent(ctx, PlayableAdSample.class);
+        Intent i = new Intent(ctx, InterstitialSample.class);
         ctx.startActivity(i);
     }
 }

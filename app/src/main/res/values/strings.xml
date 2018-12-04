@@ -27,14 +27,14 @@
     <string name="have_no_cache">haven\'t cached data</string>
     <string name="did_not_clear">did not clear</string>
     <string name="cleared">have clearing</string>
-    <string name="landing_page_install_btn_clicked">landing page install button clicked</string>
+    <string name="landing_page_install_btn_clicked">install button clicked</string>
     <string name="test_host">Test Host</string>
     <string name="product_host">Product Host</string>
     <string name="zplayads_sdk">ZPLAYAds SDK</string>
     <string name="ad_list_title">select on of the options below</string>
     <string name="settings">Settings</string>
-    <string name="test_model">TestModel</string>
     <string name="auto_ad_model">Auto Ad Model</string>
+    <string name="auto_ad_model_interstitial">Auto Ad Model interstitial</string>
     <string name="clear_cached_assets">Clear cached Assets</string>
     <string name="channel_id">Channel ID:</string>
     <string name="preview">Preview</string>
