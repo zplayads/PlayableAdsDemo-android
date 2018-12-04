@@ -31,7 +31,7 @@
 # 1 概述
 
 ## 1.1 面向读者
-本产品面向需要在Android Studio中接入ZPLAYAds SDK的Android开发人员
+本产品面向需要在Android中接入ZPLAYAds SDK的Android开发人员
 
 ## 1.2 开发环境
 - 操作系统：WinAll, Linux, Mac
@@ -61,8 +61,8 @@ dependencies {
 
 ## 2.2 Eclipse 
 ### 2.2.1 导入 SDK jar 文件
-将 [zplayads.jar](./eclipseJar) 放到 eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
-1. 在 eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口；
+将 [zplayads.jar](./eclipseJar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
+1. 在Eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口；
 2. 选择 Libraries 标签，点击 Add JARs... 按钮；
 3. 选择下载好的 jar 文件，完成导入。
 
