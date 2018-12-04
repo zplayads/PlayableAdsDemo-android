@@ -3,7 +3,7 @@
     - [1.2 Development Environment](#12-development-environment)
     - [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
 - [2 Import ZPLAYAds SDK](#2-import-zplayads-sdk)
-    - [2.1 Android Studio (recommend)](#21-android-studio-recommend)
+    - [2.1 Android Studio (preferred)](#21-android-studio-preferred)
         - [2.1.1 Add dependencies](#211-add-dependencies)
         - [2.1.2 Sync Project](#212-sync-project)
     - [2.2 Eclipse](#22-eclipse)
@@ -30,7 +30,7 @@
 
 # 1 Overview
 ## 1.1 Introduction
-This guide is designed for developers who are going to integrate the ZPLAY Ads SDK into their Android Apps via Android Studio.  Please contact service@zplayads.com, if you need any assistance in this work.
+This guide is designed for developers who are going to integrate the ZPLAY Ads SDK into their Android Apps via Android.  Please contact service@zplayads.com, if you need any assistance in this work.
 
 ## 1.2 Development Environment
 - OS：WinAll, Linux, Mac
@@ -47,7 +47,7 @@ AD_UNIT_ID: An ID for a specific ad placement within your App, as generated for 
 # 2 Import ZPLAYAds SDK
 Please follow the steps below to add the SDK. 
 
-## 2.1 Android Studio (recommend)
+## 2.1 Android Studio (preferred)
 ### 2.1.1 Add dependencies
 Add following codes in build.gradle file of project
 ```
@@ -66,7 +66,7 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 ## 2.2 Eclipse 
 ### 2.2.1 Import SDK jar
 Import [zplayads.jar](./eclipseJar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
-1. Right click the project on eclipse, select Build Path and Configure Build Path...;
+1. Right click the project on Eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.
 
