@@ -4,12 +4,15 @@
 
 ## ZPLAY Ads SDK Changelog
 
+**VERSION2.3.1**
+* 修复已知问题
+* Fix some known bugs
 
-**VERSION2.3.0**
+**VERSION2.3.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.3.0)
 * 支持物料可以重播
 * 解决调用present方法不当引起的物料展示问题
 * Support materials can be replayed
-* Fix the material display problem caused by call present method inproperly* 
+* Fix the material display problem caused by call present method inproperly
 
 **VERSION2.2.1** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.2.1)
 * 增加原生广告形式，支持自渲染及托管渲染两种渲染方式
