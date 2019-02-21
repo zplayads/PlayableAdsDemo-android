@@ -65,7 +65,7 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 
 ## 2.2 Eclipse 
 ### 2.2.1 Import SDK jar
-Import [zplayads.jar](./eclipseJar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
+Import [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.3.1.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
 1. Right click the project on Eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.

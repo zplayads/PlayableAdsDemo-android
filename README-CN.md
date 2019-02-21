@@ -61,7 +61,7 @@ dependencies {
 
 ## 2.2 Eclipse 
 ### 2.2.1 导入 SDK jar 文件
-将 [zplayads.jar](./eclipseJar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
+将 [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.3.1.jar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
 1. 在Eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口；
 2. 选择 Libraries 标签，点击 Add JARs... 按钮；
 3. 选择下载好的 jar 文件，完成导入。
