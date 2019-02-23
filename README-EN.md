@@ -27,6 +27,8 @@
   - [4.1 Sets proguard file](#41-sets-proguard-file)
   - [4.2 State Code and Description](#42-state-code-and-description)
   - [4.3 FAQ](#43-faq)
+- [5 Test](#5-Test)
+
 
 # 1 Overview
 ## 1.1 Introduction
@@ -518,3 +520,12 @@ If the project need to be proguarded, put the following code into the proguard.p
 
 If you have any problems during the process of integration, or if you found any issue in the SDK, please feel free to ask questions and [push an issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=[Describe%20the%20issue%20briefly]&body=Write%20here%20with%20the%20detail%20message%20of%20the%20issue.%20If%20you%20have%20any%20error%20log%20about%20the%20issue,%20please%20attach%20here,%20too.%20Thanks%20a%20lot%20)
 
+# 5 Test
+You can use the following test id when you are testing. Test id won't generate revenue. Please use official id when you release your App.
+
+|AD_TYPE|  APP_ID  |  AD_UNIT_ID|
+|--------|----------|------------|
+|Reward Video|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
+|Interstitial|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
+|Native Managed Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
+|Native Self Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
