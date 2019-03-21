@@ -51,10 +51,10 @@ AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置�
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.3.1'
+    compile 'com.playableads:playableads:2.4.0'
     
     // 可选依赖
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 
 ## 2.2 Eclipse 
 ### 2.2.1 导入 SDK jar 文件
-将 [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.3.1.jar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
+将 [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.0.jar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
 1. 在Eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口；
 2. 选择 Libraries 标签，点击 Add JARs... 按钮；
 3. 选择下载好的 jar 文件，完成导入。
@@ -74,8 +74,11 @@ dependencies {
 向 AndroidManifest.xml 中注册 ZPLAYAds SDK 需要的组件
 1. 权限
 ```
+<!-- 必选权限 -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!-- 可选权限 -->
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 ```
@@ -93,6 +96,12 @@ dependencies {
     android:configChanges="orientation|screenSize|keyboardHidden"
     android:hardwareAccelerated="true"
     android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<activity
+    android:name="com.playableads.presenter.WebActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 <receiver android:name="com.playableads.PlayableReceiver">
@@ -434,6 +443,7 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class * implements com.playableads.presenter.BaseWebActivity {*;}
 -keep class com.playableads.PlayableReceiver {*;}
 -keep class com.playableads.constants.StatusCode {*;}
 -keep class com.playableads.MultiPlayLoadingListener {*;}
