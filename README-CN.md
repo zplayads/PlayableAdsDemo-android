@@ -27,6 +27,8 @@
     * [4.1 混淆设置](#41-混淆设置)
     * [4.2 状态码及含意](#42-状态码及含意)
     * [4.3 FAQ](#43-faq)
+* [5 测试](#5-测试)    
+ 
 
 # 1 概述
 
@@ -49,10 +51,10 @@ AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置�
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.3.0'
+    compile 'com.playableads:playableads:2.4.0'
     
     // 可选依赖
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
 }
 ```
 
@@ -61,7 +63,7 @@ dependencies {
 
 ## 2.2 Eclipse 
 ### 2.2.1 导入 SDK jar 文件
-将 [zplayads.jar](./eclipseJar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
+将 [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.0.jar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
 1. 在Eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口；
 2. 选择 Libraries 标签，点击 Add JARs... 按钮；
 3. 选择下载好的 jar 文件，完成导入。
@@ -72,8 +74,11 @@ dependencies {
 向 AndroidManifest.xml 中注册 ZPLAYAds SDK 需要的组件
 1. 权限
 ```
+<!-- 必选权限 -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!-- 可选权限 -->
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 ```
@@ -91,6 +96,12 @@ dependencies {
     android:configChanges="orientation|screenSize|keyboardHidden"
     android:hardwareAccelerated="true"
     android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<activity
+    android:name="com.playableads.presenter.WebActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 <receiver android:name="com.playableads.PlayableReceiver">
@@ -429,6 +440,7 @@ mPlayableNativeAd.loadAd()
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class * implements com.playableads.presenter.BaseWebActivity {*;}
 -keep class com.playableads.PlayableReceiver {*;}
 -keep class com.playableads.constants.StatusCode {*;}
 -keep class com.playableads.MultiPlayLoadingListener {*;}
@@ -487,3 +499,14 @@ mPlayableNativeAd.loadAd()
 
 ## 4.3 FAQ
 在接入过程中如果遇到问题，或者可玩SDK有什么不足之处，[欢迎提issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=%5B%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%5D&body=%E8%AF%B7%E4%BF%AE%E6%94%B9%E4%B8%8A%E6%96%B9%E7%9A%84%E6%A0%87%E9%A2%98%E6%9D%A5%E7%AE%80%E8%A6%81%E6%8F%8F%E8%BF%B0%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%B9%B6%E6%8A%8A%E8%AF%A6%E7%BB%86%E7%9A%84%E5%86%85%E5%AE%B9%E5%86%99%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AF%9D%E8%AF%B7%E9%99%84%E4%B8%8A%E9%94%99%E8%AF%AF%E6%97%A5%E5%BF%97)，我们会在第一时间处理您提出的问题，万分感谢。
+
+# 5 测试
+
+您在测试中可使用如下id进行测试，测试id不会产生收益，应用上线时请使用您申请的正式id。
+
+|广告形式|  APP_ID  |  AD_UNIT_ID|
+|--------|----------|------------|
+|激励视频|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
+|插屏广告|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
+|原生托管渲染|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
+|原生自渲染|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|

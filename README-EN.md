@@ -1,32 +1,34 @@
 - [1 Overview](#1-overview)
-    - [1.1 Introduction](#11-introduction)
-    - [1.2 Development Environment](#12-development-environment)
-    - [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
+  - [1.1 Introduction](#11-introduction)
+  - [1.2 Development Environment](#12-development-environment)
+  - [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
 - [2 Import ZPLAYAds SDK](#2-import-zplayads-sdk)
-    - [2.1 Android Studio (preferred)](#21-android-studio-preferred)
-        - [2.1.1 Add dependencies](#211-add-dependencies)
-        - [2.1.2 Sync Project](#212-sync-project)
-    - [2.2 Eclipse](#22-eclipse)
-        - [2.2.1 Import SDK jar](#221-import-sdk-jar)
-        - [2.2.2 Regitsters ZPLAYAds SDK componets](#222-regitsters-zplayads-sdk-componets)
+  - [2.1 Android Studio (preferred)](#21-android-studio-preferred)
+    - [2.1.1 Add dependencies](#211-add-dependencies)
+    - [2.1.2 Sync Project](#212-sync-project)
+  - [2.2 Eclipse](#22-eclipse)
+    - [2.2.1 Import SDK jar](#221-import-sdk-jar)
+    - [2.2.2 Regitsters ZPLAYAds SDK componets](#222-regitsters-zplayads-sdk-componets)
 - [3 Integrates ZPLAYAds SDK](#3-integrates-zplayads-sdk)
-    - [3.1 Reward Video](#31-reward-video)
-        - [3.1.1 Initialize Reward Video SDK](#311-initialize-reward-video-sdk)
-        - [3.1.2 Request Ad](#312-request-ad)
-        - [3.1.3 Show Ads/Obtain Rewards](#313-show-adsobtain-rewards)
-        - [3.1.4 Other Methods](#314-other-methods)
-    - [3.2 Interstitial](#32-interstitial)
-        - [3.2.1 Initialize interstitial SDK](#321-initialize-interstitial-sdk)
-        - [3.2.2 Request Ad](#322-request-ad)
-        - [3.2.3 Show Ads](#323-show-ads)
-        - [3.2.4 Other Methods](#324-other-methods)
-    - [3.3 Native Ad](#33-native-ad)
-        - [3.3.1 Integrate Native Ad (Managed Rendering)](#331-integrate-native-ad-managed-rendering)
-        - [3.3.2 Integrate Native Ad (Self Rendering)](#332-integrate-native-ad-self-rendering)
+  - [3.1 Reward Video](#31-reward-video)
+    - [3.1.1 Initialize Reward Video SDK](#311-initialize-reward-video-sdk)
+    - [3.1.2 Request Ad](#312-request-ad)
+    - [3.1.3 Show Ads/Obtain Rewards](#313-show-adsobtain-rewards)
+    - [3.1.4 Other Methods](#314-other-methods)
+  - [3.2 Interstitial](#32-interstitial)
+    - [3.2.1 Initialize interstitial SDK](#321-initialize-interstitial-sdk)
+    - [3.2.2 Request Ad](#322-request-ad)
+    - [3.2.3 Show Ads](#323-show-ads)
+    - [3.2.4 Other Methods](#324-other-methods)
+  - [3.3 Native Ad](#33-native-ad)
+    - [3.3.1 Integrate Native Ad (Managed Rendering)](#331-integrate-native-ad-managed-rendering)
+    - [3.3.2 Integrate Native Ad (Self Rendering)](#332-integrate-native-ad-self-rendering)
 - [4 Others](#4-others)
-    - [4.1 Sets proguard file](#41-sets-proguard-file)
-    - [4.2 State Code and Description](#42-state-code-and-description)
-    - [4.3 FAQ](#43-faq)
+  - [4.1 Sets proguard file](#41-sets-proguard-file)
+  - [4.2 State Code and Description](#42-state-code-and-description)
+  - [4.3 FAQ](#43-faq)
+- [5 Test](#5-Test)
+
 
 # 1 Overview
 ## 1.1 Introduction
@@ -52,10 +54,10 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.3.0'
+    compile 'com.playableads:playableads:2.4.0'
     
     // Optional dependence
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
 }
 ```
 
@@ -65,7 +67,7 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 
 ## 2.2 Eclipse 
 ### 2.2.1 Import SDK jar
-Import [zplayads.jar](./eclipseJar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
+Import [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.0.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
 1. Right click the project on Eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.
@@ -76,8 +78,11 @@ NOTE: zplayads.jar only can be used in Eclipse, if your IDE is Android Studio pl
 Registers necessary componets into AndroidManifest
 1. permissions
 ```
+<!-- required permissions -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!-- optional permissions -->
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 ```
@@ -95,6 +100,12 @@ Registers necessary componets into AndroidManifest
     android:configChanges="orientation|screenSize|keyboardHidden"
     android:hardwareAccelerated="true"
     android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<activity
+    android:name="com.playableads.presenter.WebActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 <receiver android:name="com.playableads.PlayableReceiver">
@@ -458,6 +469,7 @@ If the project need to be proguarded, put the following code into the proguard.p
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class * implements com.playableads.presenter.BaseWebActivity {*;}
 -keep class com.playableads.PlayableReceiver {*;}
 -keep class com.playableads.constants.StatusCode {*;}
 -keep class com.playableads.MultiPlayLoadingListener {*;}
@@ -518,3 +530,12 @@ If the project need to be proguarded, put the following code into the proguard.p
 
 If you have any problems during the process of integration, or if you found any issue in the SDK, please feel free to ask questions and [push an issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=[Describe%20the%20issue%20briefly]&body=Write%20here%20with%20the%20detail%20message%20of%20the%20issue.%20If%20you%20have%20any%20error%20log%20about%20the%20issue,%20please%20attach%20here,%20too.%20Thanks%20a%20lot%20)
 
+# 5 Test
+You can use the following test id when you are testing. Test id won't generate revenue. Please use official id when you release your App.
+
+|AD_TYPE|  APP_ID  |  AD_UNIT_ID|
+|--------|----------|------------|
+|Reward Video|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
+|Interstitial|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
+|Native Managed Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
+|Native Self Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|

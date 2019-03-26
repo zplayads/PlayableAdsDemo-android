@@ -35,7 +35,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
-        mTextView.setText(String.format("%s\n%s", mTextView.getText(), "2.3.0"));
+        mTextView.setText(String.format("%s\n%s", mTextView.getText(), "2.4.0"));
         mHandler = new Handler();
         mHandler.postDelayed(new Runnable() {
             @Override
