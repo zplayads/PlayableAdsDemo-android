@@ -54,10 +54,10 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.3.1'
+    compile 'com.playableads:playableads:2.4.0'
     
     // Optional dependence
-    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
 }
 ```
 
@@ -67,7 +67,7 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 
 ## 2.2 Eclipse 
 ### 2.2.1 Import SDK jar
-Import [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.3.1.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
+Import [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.0.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
 1. Right click the project on Eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.
@@ -78,8 +78,11 @@ NOTE: zplayads.jar only can be used in Eclipse, if your IDE is Android Studio pl
 Registers necessary componets into AndroidManifest
 1. permissions
 ```
+<!-- required permissions -->
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+<!-- optional permissions -->
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 ```
@@ -97,6 +100,12 @@ Registers necessary componets into AndroidManifest
     android:configChanges="orientation|screenSize|keyboardHidden"
     android:hardwareAccelerated="true"
     android:screenOrientation="portrait"
+    android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+<activity
+    android:name="com.playableads.presenter.WebActivity"
+    android:configChanges="orientation|screenSize|keyboardHidden"
+    android:hardwareAccelerated="true"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 <receiver android:name="com.playableads.PlayableReceiver">
@@ -460,6 +469,7 @@ If the project need to be proguarded, put the following code into the proguard.p
 -keep class com.playableads.PlayLoadingListener {*;}
 -keep class * implements com.playableads.PlayPreloadingListener {*;}
 -keep class * implements com.playableads.PlayLoadingListener {*;}
+-keep class * implements com.playableads.presenter.BaseWebActivity {*;}
 -keep class com.playableads.PlayableReceiver {*;}
 -keep class com.playableads.constants.StatusCode {*;}
 -keep class com.playableads.MultiPlayLoadingListener {*;}
