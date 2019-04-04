@@ -4,7 +4,11 @@
 
 ## ZPLAY Ads SDK Changelog
 
-**VERSION2.4.0** 
+**VERSION2.4.1**
+* 移除部分权限
+* Remove some permissions
+
+**VERSION2.4.0** [Click here to download](https://github.com/zplayads/PlayableAdsDemo-android/tree/2.4.0)
 * 支持展示新样式可玩物料
 * 修复已知问题
 * 优化广告请求逻辑
