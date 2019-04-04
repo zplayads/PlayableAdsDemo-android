@@ -193,7 +193,6 @@ mRewardVideo.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayL
     void onAdClosed(){
         // 可玩广告展示结束，可以在此处处理应用逻辑，比如打开应用声音。
     }
-
 });
 ```
 
@@ -272,9 +271,7 @@ mInterstitial.presentPlayableAd("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new Play
     @Override
     void onAdClosed(){
         // 可玩广告展示结束，可以在此处处理应用逻辑，比如打开应用声音。
-    }
-
-    ...
+    }     
 });
 ```
 
