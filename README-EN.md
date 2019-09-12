@@ -1,34 +1,35 @@
-- [1 Overview](#1-overview)
-  - [1.1 Introduction](#11-introduction)
-  - [1.2 Development Environment](#12-development-environment)
-  - [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
-- [2 Import ZPLAYAds SDK](#2-import-zplayads-sdk)
-  - [2.1 Android Studio (preferred)](#21-android-studio-preferred)
-    - [2.1.1 Add dependencies](#211-add-dependencies)
-    - [2.1.2 Sync Project](#212-sync-project)
-  - [2.2 Eclipse](#22-eclipse)
-    - [2.2.1 Import SDK jar](#221-import-sdk-jar)
-    - [2.2.2 Regitsters ZPLAYAds SDK componets](#222-regitsters-zplayads-sdk-componets)
-- [3 Integrates ZPLAYAds SDK](#3-integrates-zplayads-sdk)
-  - [3.1 Reward Video](#31-reward-video)
-    - [3.1.1 Initialize Reward Video SDK](#311-initialize-reward-video-sdk)
-    - [3.1.2 Request Ad](#312-request-ad)
-    - [3.1.3 Show Ads/Obtain Rewards](#313-show-adsobtain-rewards)
-    - [3.1.4 Other Methods](#314-other-methods)
-  - [3.2 Interstitial](#32-interstitial)
-    - [3.2.1 Initialize interstitial SDK](#321-initialize-interstitial-sdk)
-    - [3.2.2 Request Ad](#322-request-ad)
-    - [3.2.3 Show Ads](#323-show-ads)
-    - [3.2.4 Other Methods](#324-other-methods)
-  - [3.3 Native Ad](#33-native-ad)
-    - [3.3.1 Integrate Native Ad (Managed Rendering)](#331-integrate-native-ad-managed-rendering)
-    - [3.3.2 Integrate Native Ad (Self Rendering)](#332-integrate-native-ad-self-rendering)
-- [4 Others](#4-others)
-  - [4.1 Sets proguard file](#41-sets-proguard-file)
-  - [4.2 State Code and Description](#42-state-code-and-description)
-  - [4.3 FAQ](#43-faq)
-- [5 Test](#5-Test)
-
+   * [1 Overview](#1-overview)
+      * [1.1 Introduction](#11-introduction)
+      * [1.2 Development Environment](#12-development-environment)
+      * [1.3 ZPLAY Ads Account Requirements](#13-zplay-ads-account-requirements)
+   * [2 Import ZPLAYAds SDK](#2-import-zplayads-sdk)
+      * [2.1 Android Studio (recommend)](#21-android-studio-recommend)
+         * [2.1.1 Add dependencies](#211-add-dependencies)
+         * [2.1.2 Sync Project](#212-sync-project)
+      * [2.2 Eclipse](#22-eclipse)
+         * [2.2.1 Import SDK jar](#221-import-sdk-jar)
+         * [2.2.2 Regitsters ZPLAYAds SDK componets](#222-regitsters-zplayads-sdk-componets)
+   * [3 Integrates ZPLAYAds SDK](#3-integrates-zplayads-sdk)
+      * [3.1 Banner](#31-banner)
+         * [3.1.1 Initialization and Request](#311-initialization-and-request)
+         * [3.1.2 Events](#312-events)
+         * [3.1.3 Other methods](#313-other-methods)
+      * [3.2 Reward Video](#32-reward-video)
+         * [3.2.1 Initialization and Request](#321-initialization-and-request)
+         * [3.2.2 Show](#322-show)
+         * [3.2.3 other methods](#323-other-methods)
+      * [3.3 Interstitial](#33-interstitial)
+         * [3.3.1 Initialization and Request](#331-initialization-and-request)
+         * [3.3.2 Show](#332-show)
+         * [3.3.3 Other methods](#333-other-methods)
+      * [3.4 Native Ad](#34-native-ad)
+         * [3.4.1 Integrate Native Ad (Managed Rendering)](#341-integrate-native-ad-managed-rendering)
+         * [3.4.2 Integrate Native Ad (Self Rendering)](#342-integrate-native-ad-self-rendering)
+   * [5 Others](#5-others)
+      * [5.1 Sets proguard file](#51-sets-proguard-file)
+      * [5.2 State Code and Description](#52-state-code-and-description)
+      * [5.3 FAQ](#53-faq)
+   * [6 Test](#6-test)
 
 # 1 Overview
 ## 1.1 Introduction
@@ -49,7 +50,7 @@ AD_UNIT_ID: An ID for a specific ad placement within your App, as generated for 
 # 2 Import ZPLAYAds SDK
 Please follow the steps below to add the SDK. 
 
-## 2.1 Android Studio (preferred)
+## 2.1 Android Studio (recommend)
 ### 2.1.1 Add dependencies
 Add following codes in build.gradle file of project
 ```
@@ -67,12 +68,12 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 
 ## 2.2 Eclipse 
 ### 2.2.1 Import SDK jar
-Import [zplayads.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.1.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
+Import [zplayads-2.4.1.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.1.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
 1. Right click the project on Eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.
 
-NOTE: zplayads.jar only can be used in Eclipse, if your IDE is Android Studio please refer to 2.1 part.
+NOTE: zplayads-2.4.1.jar only can be used in Eclipse, if your IDE is Android Studio please refer to 2.1 part.
 
 ### 2.2.2 Regitsters ZPLAYAds SDK componets
 Registers necessary componets into AndroidManifest
@@ -87,12 +88,11 @@ Registers necessary componets into AndroidManifest
 <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
 ```
 2. activity and receiver
-```
+```xml
 <activity
     android:name="com.playableads.presenter.PlayableADActivity"
     android:configChanges="orientation|screenSize|keyboardHidden"
     android:hardwareAccelerated="true"
-    android:screenOrientation="portrait"
     android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 <activity
@@ -117,29 +117,77 @@ Registers necessary componets into AndroidManifest
 
 # 3 Integrates ZPLAYAds SDK
 
-Note: You can use the following test id when you are testing. Test id won't generate revenue. Please use official id when you release your App.
+You should use the testing id in test phase. Testing id won't generate revenue. Please use official id when you release your App.
 
-|AD_TYPE|  APP_ID  |  AD_UNIT_ID|
-|--------|----------|------------|
-|Reward Video|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
-|Interstitial|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
-|Native Managed Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
-|Native Self Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
+## 3.1 Banner
+### 3.1.1 Initialization and Request 
+```java
+// Create Banner object
+// context: activity or context
+// APP_ID: application id
+// AD_UNIT_ID: ad unit id
+mBanner = new AtmosplayAdsBanner(context, APP_ID, AD_UNIT_ID);
 
-## 3.1 Reward Video
-### 3.1.1 Initialize Reward Video SDK
-Calls```PlayableAds.init(context, APP_ID)``` to initialize Reward Video SDK, e.g.
+// Set Banner size
+// BannerSize:
+//  - BANNER_320x50: request a Banner with a shape of 320dp x 50dp
+//  - BANNER_728x90: request a Banner with a shape of 728dp x 90dp
+//  - SMART_BANNER: request a Banner based on your device which if it is tablet the shape will be screen width x 90dp, otherwise, if it is landscpe model the shape will be screen width x 32sp, others will be screen width x 50dp
+mBanner.setBannerSize(BannerSize);
+
+// (optional)Set Banner container
+// When you set the container, the Banner is automatically filled into the container when it is ready then refresh the Banner at next banner is ready.
+// When you do not set the container, you should get Banner view when banner is loaded and then put it into your container, also you should take care of it when it comes new Banner view is ready
+mBanner.setBannerContainer(ViewGroup);
+
+// Load an advertising
+mBanner.loadAd();
 ```
-PlayableAds mRewardVideo = PlayableAds.init(context, "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF");
+
+### 3.1.2 Events
+When you need some Banner lifecycle events like loaded, failed or clicked, you can do as follows:
+```java
+mBanner.setBannerListener(bannerListener)
+```
+BannerListener definition
+```java
+interface BannerListener {
+    // Fired when Banner is ready
+    // ！！note！！ if you set a container before, the banner will be automatically filled into the container
+    void onBannerPrepared(AtmosBannerView banner);
+    // Fired when Banner load failed, you will get error code and error message
+    void onBannerPreparedFailed(int code, String error);
+    // Fired when Banner view was clicked
+    void onBannerClicked();
+}
+```
+### 3.1.3 Other methods
+```java
+// Set channel id, when you publish your app to different app market you may use it
+mBanner.setChannelId(string);
+// Destroy the Banner object
+mBanner.destory()
 ```
 
-### 3.1.2 Request Ad
+The [BannerSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/BannerSample.java) file is the Banner sample code.
 
-To pre-load an ad may take several seconds, so it's recommended to initialize the SDK and load ads as early as possible. 
+## 3.2 Reward Video
+### 3.2.1 Initialization and Request
+```java
+// Create Reward video object
+// context: activity or context
+// APP_ID: application ID
+mRewardVideo = PlayableAds.init(context, APP_ID)
 
-Calls ```mRewardVideo.requestPlayableAds(AD_UNIT_ID, playPreloadingListener)``` to load ad，the all methods of theplayPreloadingListener as below：
+// Request reward video
+// AD_UNIT_ID: ad unit id
+// playPreloadingListener：you can get request events from the object's callbacks
+// To pre-load an ad may take several seconds, so it's recommended to initialize the SDK and load ads as early as possible. 
+mRewardVideo.requestPlayableAds(AD_UNIT_ID, playPreloadingListener)
 ```
-public interface PlayPreloadingListener {
+PlayPreloadingListener definition
+```java
+interface PlayPreloadingListener {
     // reward video has been loaded
     void onLoadFinished();
     // reward video load failed, you can read the message to find out what went wrong with the download.
@@ -147,29 +195,16 @@ public interface PlayPreloadingListener {
 }
 ```
 
-code snippet for request ad：
-```
-mRewardVideo.requestPlayableAds("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayPreloadingListener() {
-    @Override
-    public void onLoadFinished() {
-        // Ad has been loaded, you can invoke mRewardVideo.presentPlayableAD(...) to show the ad
-    }
-
-    @Override
-    public void onLoadFailed(int errorCode, String message) {
-        // Ad load failed
-    }
-})
-```
-
-### 3.1.3 Show Ads/Obtain Rewards
-When an ad is ready to display, you can show it using following method.
-```
+### 3.2.2 Show
+```java
+// Show reward video
+// AD_UNIT_ID: the same with ad unit id which you use it to load ad
+// playLoadingListener: you can get show events from the object's callbacks
 mRewardVideo.presentPlayableAD(AD_UNIT_ID, playLoadingListener)
 ```
-You can confirm the completed ad show with this listener callback.  
-```
-public interface PlayLoadingListener {
+PlayLoadingListener definition
+```java
+interface PlayLoadingListener {
     // the ad game start playing
     void onVideoStart();
 
@@ -190,53 +225,35 @@ public interface PlayLoadingListener {
 }
 ```
 
-Code snippet for show an ad:
-```
-mRewardVideo.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayLoadingListener() {
-    @Override
-    void onVideoStart(){
-        // Reward Video start playing, if your app has sound, you can turn it off here to avoid playing the sound of apps and ads at the same time.
-    }
-
-    @Override
-    public void playableAdsIncentive() {
-        // Ad impression success, use this to judge if the reward should be given.
-    }
-
-    @Override
-    void onAdClosed(){
-        // Ad has been closed, if you turn off the app's sound in video start, you can turn it on in here
-    }
-);
+### 3.2.3 other methods
+```java
+// The SDK automatically loads the next advertisement after displayed an ad by default. This method can be used to disable automatic loading of the next advertisement.
+void setAutoLoadAd(boolean)
+// This method can determin whether an add has been loaded.
+boolean canPresentAd(AD_UNIT_ID)
+// Destroy ad object
+void destroy()
 ```
 
-### 3.1.4 Other Methods
+The [RewardVideoSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/RewardVideoSample.java) file is the Reward Video sample code.
 
-```void setAutoLoadAd(boolean)```The SDK automatically loads the next advertisement after displayed an ad by default. This method can be used to disable automatic loading of the next advertisement.
+## 3.3 Interstitial
+### 3.3.1 Initialization and Request
+```java
+// Create interstitial object
+// context: activity or context
+// APP_ID: application ID
+mInterstitial = PlayableInterstitial.init(context, APP_ID)
 
-```boolean canPresentAd(AD_UNIT_ID)``` This method can determin whether an add has been loaded.
-
-The [PlayableAdSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/PlayableAdSample.java) file is the Reward Video sample code.
-
-## 3.2 Interstitial
-### 3.2.1 Initialize interstitial SDK
-Calls ```PlayableInterstitial.init(context, APP_ID)``` to initialize Reward Video SDK, e.g.
+// Request ad
+// AD_UNIT_ID: ad unit id
+// playPreloadingListener: you can get request events from the object's callbacks
+mInterstitial.requestPlayableAds(AD_UNIT_ID, playPreloadingListener)
 ```
-PlayableInterstitial mInterstitial = PlayableInterstitial.init(context, "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF");
-```
 
-### 3.2.2 Request Ad
-
-To pre-load an ad may take several seconds, so it's recommended to initialize the SDK and load ads as early as possible. 
-
-Calls the following method to pre-load playable ad
-
-```
-mInterstitial.requestPlayableAds(AD_UNIT_ID, playPreloadingListener);
-```
-You can judge the availability of an ad by this listener callback.
-```
-public interface PlayPreloadingListener {
+PlayPreloadingListener definition
+```java
+interface PlayPreloadingListener {
     // Interstitial has been loaded
     void onLoadFinished();
     // Fail to load an ad
@@ -244,30 +261,17 @@ public interface PlayPreloadingListener {
 }
 ```
 
-Code Sample：
-
+### 3.3.2 Show
+```java
+// Show ad
+// AD_UNIT_ID: the same with ad unit id which you use it to load ad
+// playLoadingListener: you can get request events from the object's callbacks
+// To pre-load an ad may take several seconds, so it's recommended to initialize the SDK and load ads as early as possible. 
+mInterstitial.presentPlayableAd(AD_UNIT_ID, playLoadingListener)
 ```
-mInterstitial.requestPlayableAds("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayPreloadingListener() {
-    @Override
-    public void onLoadFinished() {
-        // Ad preload successfully, call method presentPlayableAd(...)to show playable ad.
-    }
-
-    @Override
-    public void onLoadFailed(int errorCode, String message) {
-        // Ad preload failed, locate problem according error code and error messages.
-    }
-})
-```
-
-### 3.2.3 Show Ads
-When an ad is ready to display, you can show it using following method.
-```
-mInterstitial.presentPlayableAD(AD_UNIT_ID, playLoadingListener)
-```
-You can confirm the completed ad show with this listener callback.  
-```
-public interface PlayLoadingListener {
+PlayLoadingListener definition
+```java
+interface PlayLoadingListener {
     // the ad game start playing
     void onVideoStart();
 
@@ -288,34 +292,25 @@ public interface PlayLoadingListener {
 }
 ```
 
-Code Sample:
+### 3.3.3 Other methods
+
+```java
+// The SDK automatically loads the next advertisement after displayed an ad by default. 
+// This method can be used to disable automatic loading of the next advertisement.
+void setAutoload(boolean)
+// This method can determin whether an add has been loaded.
+boolean canPresentAd(AD_UNIT_ID)
+// Destroy ad object
+void destroy()
 ```
-mInterstitial.presentPlayableAD("3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC", new PlayLoadingListener() {
-    @Override
-    void onVideoStart(){
-        // Interstitial start playing, if your app has sound, you can turn it off here to avoid playing the sound of apps and ads at the same time.
-    }
-
-    @Override
-    void onAdClosed(){
-        // Ad has been closed, if you turn off the app's sound in video start, you can turn it on in here
-    }
-});
-```
-
-### 3.2.4 Other Methods
-
-```void setAutoload(boolean)```The SDK automatically loads the next advertisement after displayed an ad by default. This method can be used to disable automatic loading of the next advertisement.
-
-```boolean canPresentAd(AD_UNIT_ID)``` This method can determin whether an add has been loaded.
 
 The [InterstitialSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/InterstitialSample.java) file is the sample code for interstitial.
 
-## 3.3 Native Ad
+## 3.4 Native Ad
 
 When you integrate native ad, you can choose Managed Rendering or Self Rendering. 
 
-### 3.3.1 Integrate Native Ad (Managed Rendering)
+### 3.4.1 Integrate Native Ad (Managed Rendering)
 
 > Managed rendering is a rendering mode of native ad. In this mode, ad will be rendered automatically. This approach simplifies the process of accessing native ad, and you can integrate native ad more convient since you do not need to deal with ad rendering related issues.
 
@@ -386,7 +381,7 @@ nativeAd.setNativeEventListener(new NativeEventListener() {
 
 The [NativeAdRecyclerViewSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/NativeAdRecyclerViewSample.java) file is the sample code for the native ad(Managed Rendering).
 
-### 3.3.2 Integrate Native Ad (Self Rendering)
+### 3.4.2 Integrate Native Ad (Self Rendering)
 
 > Self rendering is another rendering mode, which has high flexibility, of native ad. You can splice ad style according to your needs to make ad more suitable for your app.  
 
@@ -460,82 +455,40 @@ mPlayableNativeAd.loadAd()
 
 The [NativeAdSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/NativeAdSample.java) file is the sample code of native ad(Self Rendering).
 
-# 4 Others
-## 4.1 Sets proguard file
+# 5 Others
+## 5.1 Sets proguard file
 If the project need to be proguarded, put the following code into the proguard.pro file.
 ```
 # ZPLAYAds
--keep class com.playableads.PlayPreloadingListener {*;}
--keep class com.playableads.PlayLoadingListener {*;}
--keep class * implements com.playableads.PlayPreloadingListener {*;}
--keep class * implements com.playableads.PlayLoadingListener {*;}
--keep class * implements com.playableads.presenter.BaseWebActivity {*;}
--keep class com.playableads.PlayableReceiver {*;}
--keep class com.playableads.constants.StatusCode {*;}
--keep class com.playableads.MultiPlayLoadingListener {*;}
--keep class com.playableads.MultiPlayPreloadingListener {*;}
--keep class * implements com.playableads.MultiPlayLoadingListener {*;}
--keep class * implements com.playableads.MultiPlayPreloadingListener {*;}
--keep class com.playableads.PlayableAds {
-    public static com.playableads.PlayableAds getInstance();
-    public synchronized static com.playableads.PlayableAds init(android.content.Context, java.lang.String);
-    public <methods>;
-}
--keep class com.playableads.PlayableInterstitial {
-    public static com.playableads.PlayableInterstitial getInstance();
-    public synchronized static com.playableads.PlayableInterstitial init(android.content.Context, java.lang.String);
-    public <methods>;
-}
-# ZPLAYAds native ad
--keep class com.playableads.PlayableNativeAd {
-    public <methods>;
-}
--keep class com.playableads.PlayableNativeExpressAd {
-    public <methods>;
-}
--keep class com.playableads.nativead.NativeAdRender {
-    public <methods>;
-}
--keep class com.playableads.nativead.ViewBinder.NativeViewHolder {
-    public <methods>;
-}
--keep class com.playableads.nativead.NativeAdExpressView {
-    public <methods>;
-}
--keep class com.playableads.nativead.NativeAdLoadListener {*;}
--keep class com.playableads.nativead.NativeEventListener {*;}
--keep class com.playableads.nativead.NativeAd {
-    public <methods>;
-}
--keep class com.playableads.nativead.ViewBinder$* {*;}
+-keep class com.playableads.**{*;}
 ```
 
-## 4.2 State Code and Description
+## 5.2 State Code and Description
 
-|state code|description|notes|
-|-----|----|---|
-|1001|request constructed error|error occurrs while constructing the request parameter, unable to get device token(any of adversting_id, android_id, imei, mac_addr)|
-|1002|request parameters error|request parameter does not match, please check whether APP_ID, UNIT_ID has been passed correctly|
-|1003|lack of WRITE_EXTERNAL_STORAGE|unable to write file to device, unable to cache advertising material|
-|2002|preload finished|ad had been preloaded|
-|2004|ads has filled|ad is loading or has been loaded|
-|2005|no ad|no ad returned from server|
-|2006|no connection error|can not connect to the internet, check the internet connection|
-|2007|timeout error|network connection timeout, check network or switch network and retry request|
-|2008|server error|an exception may occur in advertisement service, please try again later|
-|5001|context is null|context is null, please check whether context has been passed correctly|
-|5002|network error|network error|
+| state code | description                    | notes                                                                                                                                |
+| ---------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| 1001       | request constructed error      | error occurrs while constructing the request parameter, unable to get device token(any of adversting_id, android_id, imei, mac_addr) |
+| 1002       | request parameters error       | request parameter does not match, please check whether APP_ID, UNIT_ID has been passed correctly                                     |
+| 1003       | lack of WRITE_EXTERNAL_STORAGE | unable to write file to device, unable to cache advertising material                                                                 |
+| 2002       | preload finished               | ad had been preloaded                                                                                                                |
+| 2004       | ads has filled                 | ad is loading or has been loaded                                                                                                     |
+| 2005       | no ad                          | no ad returned from server                                                                                                           |
+| 2006       | no connection error            | can not connect to the internet, check the internet connection                                                                       |
+| 2007       | timeout error                  | network connection timeout, check network or switch network and retry request                                                        |
+| 2008       | server error                   | an exception may occur in advertisement service, please try again later                                                              |
+| 5001       | context is null                | context is null, please check whether context has been passed correctly                                                              |
+| 5002       | network error                  | network error                                                                                                                        |
 
-## 4.3 FAQ
+## 5.3 FAQ
 
 If you have any problems during the process of integration, or if you found any issue in the SDK, please feel free to ask questions and [push an issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=[Describe%20the%20issue%20briefly]&body=Write%20here%20with%20the%20detail%20message%20of%20the%20issue.%20If%20you%20have%20any%20error%20log%20about%20the%20issue,%20please%20attach%20here,%20too.%20Thanks%20a%20lot%20)
 
-# 5 Test
-You can use the following test id when you are testing. Test id won't generate revenue. Please use official id when you release your App.
+# 6 Test
+You can use the following testing id when you are testing. Testing id won't generate revenue. Please use official id when you release your App.
 
-|AD_TYPE|  APP_ID  |  AD_UNIT_ID|
-|--------|----------|------------|
-|Reward Video|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC|
-|Interstitial|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|19393189-C4EB-3886-60B9-13B39407064E|
-|Native Managed Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|0246FB55-3042-9F29-D4AB-21C6349EEE83|
-|Native Self Rendering|5C5419C7-A2DE-88BC-A311-C3E7A646F6AF|BB8452AD-06E7-140B-00DC-FD6CB6B40FAA|
+| AD_TYPE                  | APP_ID                               | AD_UNIT_ID                           |
+| ------------------------ | ------------------------------------ | ------------------------------------ |
+| Reward Video             | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC |
+| Interstitial             | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 19393189-C4EB-3886-60B9-13B39407064E |
+| Native Managed Rendering | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 0246FB55-3042-9F29-D4AB-21C6349EEE83 |
+| Native Self Rendering    | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | BB8452AD-06E7-140B-00DC-FD6CB6B40FAA |
