@@ -55,10 +55,7 @@ Please follow the steps below to add the SDK.
 Add following codes in build.gradle file of project
 ```
 dependencies {
-    implementation 'com.playableads:playableads:2.4.1'
-    
-    // Optional dependence
-    implementation 'com.google.android.gms:play-services-ads:11.0.4'
+    implementation 'com.playableads:playableads:2.6.0'
 }
 ```
 
@@ -68,12 +65,12 @@ Click "Sync Project with Gradle Files" button on the Android Studio's menu bar t
 
 ## 2.2 Eclipse 
 ### 2.2.1 Import SDK jar
-Import [zplayads-2.4.1.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.1.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
+Import [zplayads-2.6.0.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.6.0.jar) into the Eclipse project's libs, and configure the build path, the main steps as follows,
 1. Right click the project on Eclipse, select Build Path and Configure Build Path...;
 2. Chooses Libraries table, click Add JARs... button;
 3. Select the jar file.
 
-NOTE: zplayads-2.4.1.jar only can be used in Eclipse, if your IDE is Android Studio please refer to 2.1 part.
+also need move [assets](https://github.com/zplayads/PlayableAdsDemo-android/tree/master/eclipseJar/assets) resources to your project assets directory.
 
 ### 2.2.2 Regitsters ZPLAYAds SDK componets
 Registers necessary componets into AndroidManifest
@@ -488,6 +485,7 @@ You can use the following testing id when you are testing. Testing id won't gene
 
 | AD_TYPE                  | APP_ID                               | AD_UNIT_ID                           |
 | ------------------------ | ------------------------------------ | ------------------------------------ |
+| Banner                   | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | F22F347B-3D57-0C70-0B13-EFCFDF402EBA |
 | Reward Video             | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC |
 | Interstitial             | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 19393189-C4EB-3886-60B9-13B39407064E |
 | Native Managed Rendering | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 0246FB55-3042-9F29-D4AB-21C6349EEE83 |

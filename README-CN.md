@@ -42,9 +42,9 @@
 - 部署目标：Android 4.0及以上
 
 ## 1.3 术语介绍
-APP_ID: 应用广告，是您在ZPLAYAds平台创建媒体时获取的ID；
+APP_ID: 应用广告，是您在ZPLAYAds平台创建媒体时获取的ID
 
-AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的ID。
+AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置的ID
 
 # 2 SDK接入
 ## 2.1 Android Studio (推荐)
@@ -52,10 +52,7 @@ AD_UNIT_ID: 广告位ID，是ZPLAYAds平台为您的应用创建的广告位置�
 在app项目的build.gradle中添加以下代码
 ```
 dependencies {
-    compile 'com.playableads:playableads:2.4.1'
-    
-    // 可选依赖
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.playableads:playableads:2.6.0'
 }
 ```
 
@@ -64,12 +61,12 @@ dependencies {
 
 ## 2.2 Eclipse 
 ### 2.2.1 导入 SDK jar 文件
-将 [zplayads-2.4.1.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.4.1.jar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
+将 [zplayads-2.6.0.jar](https://github.com/zplayads/PlayableAdsDemo-android/raw/master/eclipseJar/zplayads-2.6.0.jar) 放到Eclipse 项目 libs 文件夹下，并添加到 build path。添加 build path 步骤如下：
 1. 在Eclipse 中右击项目，选择 Build Path -> Configure Build Path... 弹出 java Build Path 窗口
 2. 选择 Libraries 标签，点击 Add JARs... 按钮
 3. 选择下载好的 jar 文件，完成导入
 
-注：zplayads-2.4.1.jar此文件在Eclipse环境中可直接使用，若您开发环境为Android Studio请参考2.1接入方法。
+需要将 [assets](https://github.com/zplayads/PlayableAdsDemo-android/tree/master/eclipseJar/assets) 下的资源复制到工程的 assets 目录下。
 
 ### 2.2.2 注册 ZPLAYAds SDK 组件
 向 AndroidManifest.xml 中注册 ZPLAYAds SDK 需要的组件
@@ -476,6 +473,7 @@ mPlayableNativeAd.loadAd()
 
 | 广告形式     | APP_ID                               | AD_UNIT_ID                           |
 | ------------ | ------------------------------------ | ------------------------------------ |
+| Banner     | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | F22F347B-3D57-0C70-0B13-EFCFDF402EBA |
 | 激励视频     | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 3FBEFA05-3A8B-2122-24C7-A87D0BC9FEEC |
 | 插屏广告     | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 19393189-C4EB-3886-60B9-13B39407064E |
 | 原生托管渲染 | 5C5419C7-A2DE-88BC-A311-C3E7A646F6AF | 0246FB55-3042-9F29-D4AB-21C6349EEE83 |
