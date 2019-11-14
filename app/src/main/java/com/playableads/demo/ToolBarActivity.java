@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo;
+package com.playableads.demo;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -10,6 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.playableads.PlayableAdsSettings;
+import com.playableads.constants.ConstantsHelper;
+import com.playableads.demo.util.UserConfig;
+import com.playableads.entity.GDPRStatus;
 
 /**
  * Description:
@@ -32,6 +37,22 @@ public abstract class ToolBarActivity extends AppCompatActivity {
             mToolbar.setElevation(10);
         }
         setSupportActionBar(mToolbar);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (UserConfig.getInstance(this).isTestEnv()) {
+            ConstantsHelper.useTestEnv();
+        } else {
+            ConstantsHelper.useProductEnv();
+        }
+
+        if (UserConfig.getInstance(this).gdprConsent()) {
+            PlayableAdsSettings.setGDPRConsent(GDPRStatus.PERSONALIZED);
+        } else {
+            PlayableAdsSettings.setGDPRConsent(GDPRStatus.NON_PERSONALIZED);
+        }
     }
 
     protected void showUpAction() {

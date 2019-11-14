@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/app_id"
                 android:paddingRight="30dp"
-                android:singleLine="true"  />
+                android:singleLine="true" />
 
             <ImageView
                 android:id="@+id/clear"
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/ad_unit_id"
                 android:paddingRight="30dp"
-                android:singleLine="true"  />
+                android:singleLine="true" />
 
             <ImageView
                 android:id="@+id/clear2"
@@ -84,7 +84,7 @@
             android:layout_height="match_parent" />
     </LinearLayout>
 
-    <com.zplay.playable.playableadsdemo.util.LogTextView
+    <com.playableads.demo.util.LogTextView
         android:id="@+id/arvn_log_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo.util;
+package com.playableads.demo.util;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -28,7 +28,7 @@ public class LogTextView extends android.support.v7.widget.AppCompatTextView {
         }
     }
 
-    public void clearLog(){
+    public void clearLog() {
         setText("");
     }
 }

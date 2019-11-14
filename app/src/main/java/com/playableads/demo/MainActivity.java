@@ -1,7 +1,8 @@
-package com.zplay.playable.playableadsdemo;
+package com.playableads.demo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,12 +11,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
-import com.zplay.playable.playableadsdemo.sample.InterstitialSample;
-import com.zplay.playable.playableadsdemo.sample.NativeAdRecyclerViewSample;
-import com.zplay.playable.playableadsdemo.sample.NativeAdSample;
-import com.zplay.playable.playableadsdemo.sample.PlayableAdSample;
+import com.playableads.demo.sample.BannerSample;
+import com.playableads.demo.sample.InterstitialSample;
+import com.playableads.demo.sample.NativeAdRecyclerViewSample;
+import com.playableads.demo.sample.NativeAdSample;
+import com.playableads.demo.sample.RewardVideoSample;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -24,11 +27,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.zplay.playable.playableadsdemo.MainActivity.AdType.INTERSTITIAL;
-import static com.zplay.playable.playableadsdemo.MainActivity.AdType.NATIVE_MANAGED;
-import static com.zplay.playable.playableadsdemo.MainActivity.AdType.NATIVE_SELF;
-import static com.zplay.playable.playableadsdemo.MainActivity.AdType.STATISTICS;
-import static com.zplay.playable.playableadsdemo.MainActivity.AdType.VIDEO;
+import static com.playableads.demo.MainActivity.AdType.BANNER;
+import static com.playableads.demo.MainActivity.AdType.INTERSTITIAL;
+import static com.playableads.demo.MainActivity.AdType.NATIVE_MANAGED;
+import static com.playableads.demo.MainActivity.AdType.NATIVE_SELF;
+import static com.playableads.demo.MainActivity.AdType.STATISTICS;
+import static com.playableads.demo.MainActivity.AdType.VIDEO;
 
 /**
  * Description:
@@ -37,12 +41,18 @@ import static com.zplay.playable.playableadsdemo.MainActivity.AdType.VIDEO;
  */
 
 public class MainActivity extends ToolBarActivity {
-    public static final String APP_ID = "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF";
     enum AdType {
         VIDEO("Video", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PlayableAdSample.launch(v.getContext());
+                RewardVideoSample.launch(v.getContext());
+            }
+        }),
+        BANNER("Banner", new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                BannerSample.launch(v.getContext());
             }
         }),
         INTERSTITIAL("Interstitial", new View.OnClickListener() {
@@ -80,7 +90,7 @@ public class MainActivity extends ToolBarActivity {
     }
 
     private static List<AdType> sAdTypeArray =
-            Collections.unmodifiableList(Arrays.asList(VIDEO, INTERSTITIAL, NATIVE_SELF, NATIVE_MANAGED, STATISTICS));
+            Collections.unmodifiableList(Arrays.asList(BANNER, VIDEO, INTERSTITIAL, NATIVE_SELF, NATIVE_MANAGED, STATISTICS));
 
     @BindView(R.id.ad_list)
     RecyclerView mAdList;
@@ -89,6 +99,9 @@ public class MainActivity extends ToolBarActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            WebView.setWebContentsDebuggingEnabled(true);
+        }
         showSettingsButton();
         ButterKnife.bind(this);
         mAdList.setAdapter(new AdListAdapter(sAdTypeArray));

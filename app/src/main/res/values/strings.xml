@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">ZPLAYAds Demo</string>
-    <string name="app_id">Your App ID or empty here</string>
-    <string name="ad_unit_id">Your Ad Unit ID or url here</string>
+    <string name="app_name">Atmosplay SDK</string>
+    <string name="app_id">Your App ID</string>
+    <string name="ad_unit_id">Your Ad Unit ID</string>
     <string name="scan">Scan</string>
     <string name="request">Request</string>
     <string name="present">Present</string>
@@ -9,8 +9,8 @@
     <string name="play_page_loaded">play page loaded</string>
     <string name="landing_page_loaded">landing page loaded</string>
     <string name="ads_incentive">reward</string>
-    <string name="ads_video_finished">game finished</string>
-    <string name="ads_video_start">game start</string>
+    <string name="ads_video_finished">video completed</string>
+    <string name="ads_video_start">ad start</string>
     <string name="ads_error">error message: %1$d -> %2$s</string>
     <string name="open_camera_permission">open camera permission please.</string>
     <string name="code_request_error">parse QR code error</string>
@@ -30,9 +30,10 @@
     <string name="landing_page_install_btn_clicked">install button clicked</string>
     <string name="test_host">Test Host</string>
     <string name="product_host">Product Host</string>
-    <string name="zplayads_sdk">ZPLAYAds SDK</string>
+    <string name="sdk_name">AtmosplayAds SDK</string>
     <string name="ad_list_title">select on of the options below</string>
     <string name="settings">Settings</string>
+    <string name="test_model">TestModel</string>
     <string name="auto_ad_model">Auto Ad Model</string>
     <string name="auto_ad_model_interstitial">Auto Ad Model interstitial</string>
     <string name="clear_cached_assets">Clear cached Assets</string>
@@ -40,4 +41,6 @@
     <string name="preview">Preview</string>
     <string name="input_html_url_or_ad_id">input HTML url or AD_ID</string>
     <string name="clear_log">Clear Log</string>
+    <string name="ads_opened">ad opened</string>
+    <string name="gdpr_setting">GDPR</string>
 </resources>

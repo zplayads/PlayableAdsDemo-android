@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo.sample;
+package com.playableads.demo.sample;
 
 import android.Manifest;
 import android.content.Context;
@@ -10,8 +10,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
-import android.webkit.ValueCallback;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -25,15 +25,13 @@ import com.android.volley.toolbox.Volley;
 import com.playableads.PlayLoadingListener;
 import com.playableads.PlayPreloadingListener;
 import com.playableads.PlayableAds;
-import com.playableads.PlayableInterstitial;
-import com.playableads.SimplePlayLoadingListener;
 import com.playableads.constants.BusinessConstants;
+import com.playableads.demo.R;
+import com.playableads.demo.ToolBarActivity;
+import com.playableads.demo.util.Encrypter;
+import com.playableads.demo.util.UserConfig;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
-import com.zplay.playable.playableadsdemo.R;
-import com.zplay.playable.playableadsdemo.ToolBarActivity;
-import com.zplay.playable.playableadsdemo.util.Encrypter;
-import com.zplay.playable.playableadsdemo.util.UserConfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,19 +44,10 @@ import butterknife.OnClick;
 import butterknife.OnLongClick;
 import butterknife.OnTextChanged;
 
-import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
+public class RewardVideoSample extends ToolBarActivity {
+    private static final String TAG = "RewardVideoSample";
 
-/**
- * Description:
- * <p>
- * Created by lgd on 2018/10/22.
- */
-
-public class InterstitialSample extends ToolBarActivity {
-    private static final String AD_UNIT_ID = "19393189-C4EB-3886-60B9-13B39407064E";
     private static final int REQUEST_CODE = 2;
-    private static String sCurrentAppId = APP_ID;
-    private static String sCurrentUnitId = AD_UNIT_ID;
 
     @BindView(R.id.text)
     TextView info;
@@ -77,10 +66,10 @@ public class InterstitialSample extends ToolBarActivity {
     @BindView(R.id.clear2)
     View mClear2;
 
+    PlayableAds mAds;
     UserConfig mConfig;
     RequestQueue mRequestQueue;
 
-    PlayableInterstitial mInterstitial;
 
     private Handler mHandler = new Handler(Looper.getMainLooper()) {
         @Override
@@ -99,21 +88,22 @@ public class InterstitialSample extends ToolBarActivity {
         showUpAction();
         showSettingsButton();
 
-        mInterstitial = PlayableInterstitial.init(this, APP_ID);
         mConfig = UserConfig.getInstance(this);
+        mAds = PlayableAds.init(this, mConfig.getVideoAppId());
+        mAds.enableAutoRequestPermissions(true);
 
         mRequestQueue = Volley.newRequestQueue(this);
 
-        mAppIdEdit.setText(sCurrentAppId);
-        setTitle("Interstitial");
-        mUnitIdEdit.setText(sCurrentUnitId);
+        mAppIdEdit.setText(mConfig.getVideoAppId());
+        setTitle("Video");
+        mUnitIdEdit.setText(mConfig.getVideoUnitId());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mInterstitial.setChannelId(mConfig.getChannelId());
-        mInterstitial.setAutoload(mConfig.isInterstitialAutoload());
+        mAds.setChannelId(mConfig.getChannelId());
+        mAds.setAutoLoadAd(mConfig.isAutoload());
     }
 
     @Override
@@ -136,23 +126,11 @@ public class InterstitialSample extends ToolBarActivity {
 
     @OnClick(R.id.request)
     public void request() {
-        String uidStr = mUnitIdEdit.getText().toString().trim();
-        final String unitId;
-        if (!TextUtils.isEmpty(uidStr)) {
-            unitId = uidStr;
-        } else {
-            unitId = AD_UNIT_ID;
-        }
+        final String unitId = mUnitIdEdit.getText().toString().trim();
 
         setInfo(unitId + " " + getString(R.string.start_request));
 
-        mInterstitial.requestPlayableAds(unitId, newRequestListener(unitId));
-
-    }
-
-    private PlayPreloadingListener newRequestListener(final String unitId) {
-
-        return new PlayPreloadingListener() {
+        mAds.requestPlayableAds(unitId, new PlayPreloadingListener() {
 
             @Override
             public void onLoadFinished() {
@@ -163,73 +141,41 @@ public class InterstitialSample extends ToolBarActivity {
             public void onLoadFailed(int errorCode, String msg) {
                 setInfo(unitId + " " + msg);
             }
-        };
-    }
-
-    private PlayLoadingListener newPlayListener(final String adUnitId) {
-        return new SimplePlayLoadingListener() {
-
-            @Override
-            public void onVideoStart() {
-                setInfo(adUnitId + " " + getString(R.string.ads_video_start));
-            }
-
-            @Override
-            public void playableAdsIncentive() {
-                setInfo(adUnitId + " " + getString(R.string.ads_incentive));
-            }
-
-            @Override
-            public void onVideoFinished() {
-                setInfo(adUnitId + " " + getString(R.string.ads_video_finished));
-            }
-
-            @Override
-            public void onLandingPageInstallBtnClicked() {
-                setInfo(adUnitId + " " + getString(R.string.landing_page_install_btn_clicked));
-            }
-
-            @Override
-            public void onAdClosed() {
-                setInfo(adUnitId + " " + getString(R.string.ad_present_closed));
-            }
-
-            @Override
-            public void onAdsError(int code, String msg) {
-                setInfo(adUnitId + " " + msg);
-            }
-        };
+        });
     }
 
     @OnClick(R.id.present)
     public void present() {
-        String editText = mUnitIdEdit.getText().toString().trim();
-        final String adUnitId = TextUtils.isEmpty(editText) ? AD_UNIT_ID : editText;
-        mInterstitial.presentPlayableAd(adUnitId, new SimplePlayLoadingListener() {
-
+        final String unitId = mUnitIdEdit.getText().toString().trim();
+        mAds.presentPlayableAD(unitId, new PlayLoadingListener() {
             @Override
             public void onVideoStart() {
-                setInfo(adUnitId + " " + getString(R.string.ads_video_start));
+                setInfo(unitId + " " + getString(R.string.ads_video_start));
             }
 
             @Override
             public void onVideoFinished() {
-                setInfo(adUnitId + " " + getString(R.string.ads_video_finished));
+                setInfo(unitId + " " + getString(R.string.ads_video_finished));
+            }
+
+            @Override
+            public void playableAdsIncentive() {
+                setInfo(unitId + " " + getString(R.string.ads_incentive));
             }
 
             @Override
             public void onLandingPageInstallBtnClicked() {
-                setInfo(adUnitId + " " + getString(R.string.landing_page_install_btn_clicked));
+                setInfo(unitId + " " + getString(R.string.landing_page_install_btn_clicked));
             }
 
             @Override
             public void onAdClosed() {
-                setInfo(adUnitId + " " + getString(R.string.ad_present_closed));
+                setInfo(unitId + " " + getString(R.string.ad_present_closed));
             }
 
             @Override
             public void onAdsError(int code, String msg) {
-                setInfo(adUnitId + " " + msg);
+                setInfo(unitId + " " + msg);
             }
         });
     }
@@ -247,9 +193,7 @@ public class InterstitialSample extends ToolBarActivity {
     public void unitIdChanged(CharSequence s, int start, int before, int count) {
         if (TextUtils.isEmpty(s.toString().trim())) {
             mClear.setVisibility(View.GONE);
-            sCurrentUnitId = AD_UNIT_ID;
         } else {
-            sCurrentUnitId = s.toString().trim();
             mClear.setVisibility(View.VISIBLE);
         }
     }
@@ -258,11 +202,8 @@ public class InterstitialSample extends ToolBarActivity {
     public void appIdChanged(CharSequence s, int start, int before, int count) {
         if (TextUtils.isEmpty(s.toString().trim())) {
             mClear2.setVisibility(View.GONE);
-            PlayableAds.init(this, APP_ID);
-            sCurrentAppId = APP_ID;
         } else {
-            sCurrentAppId = s.toString().trim();
-            PlayableAds.init(this, sCurrentAppId);
+            PlayableAds.init(this, s.toString().trim());
             mClear2.setVisibility(View.VISIBLE);
         }
     }
@@ -283,6 +224,7 @@ public class InterstitialSample extends ToolBarActivity {
     }
 
     private void setInfo(final String msg) {
+        Log.d(TAG, "setInfo: " + msg);
         runOnUiThread(new Runnable() {
 
             @Override
@@ -301,7 +243,7 @@ public class InterstitialSample extends ToolBarActivity {
                 return;
             }
         }
-        Intent intent = new Intent(InterstitialSample.this, CaptureActivity.class);
+        Intent intent = new Intent(RewardVideoSample.this, CaptureActivity.class);
         startActivityForResult(intent, REQUEST_CODE);
     }
 
@@ -317,9 +259,13 @@ public class InterstitialSample extends ToolBarActivity {
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     final String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    testAdvertising(result);
+                    if (!TextUtils.isEmpty(result)) {
+                        testAdvertising(result);
+                    } else {
+                        Toast.makeText(RewardVideoSample.this, R.string.code_request_error, Toast.LENGTH_LONG).show();
+                    }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(InterstitialSample.this, R.string.code_request_error, Toast.LENGTH_LONG).show();
+                    Toast.makeText(RewardVideoSample.this, R.string.code_request_error, Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -328,39 +274,15 @@ public class InterstitialSample extends ToolBarActivity {
     // 将SDK中加载/解析预览内容的部分提取到此处
     private void testAdvertising(final String srcId) {
         setInfo("start request ad");
-        final ValueCallback<JSONObject> callback = new ValueCallback<JSONObject>() {
-            @Override
-            public void onReceiveValue(JSONObject value) {
-                mInterstitial.requestPlayableAds(value, new PlayPreloadingListener() {
-                    @Override
-                    public void onLoadFinished() {
-                        final String tag = Encrypter.doMD5Encode16(String.valueOf(this.hashCode()));
-                        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                mInterstitial.presentPlayableAd(tag, null);
-                            }
-                        }, 500);
-                    }
-
-                    @Override
-                    public void onLoadFailed(int errorCode, String msg) {
-                        sendDebugInfo(srcId, errorCode, msg);
-                    }
-                });
-            }
-        };
-
         if (srcId.startsWith("https://") || srcId.startsWith("http://")) {
             JSONObject jsonObject = new JSONObject();
             try {
-                jsonObject.put("scb", 1);
-                jsonObject.put("sgsb", 3);
                 jsonObject.putOpt("response_target", "preview");
                 jsonObject.putOpt("video_page_url", srcId);
+                jsonObject.putOpt("sfcb", 5);
             } catch (JSONException ignore) {
             }
-            callback.onReceiveValue(jsonObject);
+            loadPreviewerAd(srcId, jsonObject);
         } else {
             String url = BusinessConstants.HOST_SRC_ID() + "/" + srcId;
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
@@ -368,11 +290,14 @@ public class InterstitialSample extends ToolBarActivity {
                 public void onResponse(JSONObject jo) {
                     try {
                         jo.putOpt("response_target", "preview");
-                        jo.put("scb", 1);
-                        jo.put("sgsb", 3);
+                        jo.putOpt("sfcb", 5);
+                        if (TextUtils.isEmpty(jo.getString("video_page_url"))) {
+                            jo = null;
+                        }
                     } catch (JSONException ignore) {
+                        jo = null;
                     }
-                    callback.onReceiveValue(jo);
+                    loadPreviewerAd(srcId, jo);
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -384,6 +309,56 @@ public class InterstitialSample extends ToolBarActivity {
         }
     }
 
+    private void loadPreviewerAd(final String srcId, JSONObject data) {
+        mAds.requestPlayableAds(data, new PlayPreloadingListener() {
+            @Override
+            public void onLoadFinished() {
+                final String tag = Encrypter.doMD5Encode16(String.valueOf(this.hashCode()));
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAds.presentPlayableAD(tag, new PlayLoadingListener() {
+                            @Override
+                            public void onVideoStart() {
+                                setInfo(srcId + " " + getString(R.string.ads_video_start));
+                            }
+
+                            @Override
+                            public void onVideoFinished() {
+                                setInfo(srcId + " " + getString(R.string.ads_video_finished));
+                            }
+
+                            @Override
+                            public void playableAdsIncentive() {
+                                setInfo(srcId + " " + getString(R.string.ads_incentive));
+                            }
+
+                            @Override
+                            public void onLandingPageInstallBtnClicked() {
+                                setInfo(srcId + " " + getString(R.string.landing_page_install_btn_clicked));
+                            }
+
+                            @Override
+                            public void onAdClosed() {
+                                setInfo(srcId + " " + getString(R.string.ad_present_closed));
+                            }
+
+                            @Override
+                            public void onAdsError(int code, String msg) {
+                                setInfo(srcId + " " + msg);
+                            }
+                        });
+                    }
+                }, 500);
+            }
+
+            @Override
+            public void onLoadFailed(int errorCode, String msg) {
+                sendDebugInfo(srcId, errorCode, msg);
+            }
+        });
+    }
+
     private void sendDebugInfo(String id, int errCode, String description) {
         Message message = mHandler.obtainMessage();
         message.obj = String.format(Locale.CHINA, "%s %d %s", id, errCode, description);
@@ -393,14 +368,22 @@ public class InterstitialSample extends ToolBarActivity {
     public void verifyAssets(View view) {
         String url = mUrlEdit.getText().toString().trim();
         if (TextUtils.isEmpty(url)) {
-            info.setText("input ZPLAYAds' HTML url or AD_ID");
+            info.setText("input AtmosplayAds' HTML url or AD_ID");
             return;
         }
         testAdvertising(url);
     }
 
     public static void launch(Context ctx) {
-        Intent i = new Intent(ctx, InterstitialSample.class);
+        Intent i = new Intent(ctx, RewardVideoSample.class);
         ctx.startActivity(i);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mAds.destroy();
+        mConfig.setVideoAppId(mAppIdEdit.getText().toString().trim());
+        mConfig.setVideoUnitId(mUnitIdEdit.getText().toString().trim());
     }
 }
