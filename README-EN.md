@@ -25,11 +25,12 @@
       * [3.4 Native Ad](#34-native-ad)
          * [3.4.1 Integrate Native Ad (Managed Rendering)](#341-integrate-native-ad-managed-rendering)
          * [3.4.2 Integrate Native Ad (Self Rendering)](#342-integrate-native-ad-self-rendering)
-   * [5 Others](#5-others)
-      * [5.1 Sets proguard file](#51-sets-proguard-file)
-      * [5.2 State Code and Description](#52-state-code-and-description)
-      * [5.3 FAQ](#53-faq)
-   * [6 Test](#6-test)
+   * [4 Others](#5-others)
+      * [4.1 GDPR](#41-GDPR)
+      * [4.2 Sets proguard file](#42-sets-proguard-file)
+      * [4.3 State Code and Description](#43-state-code-and-description)
+      * [4.4 FAQ](#44-faq)
+   * [5 Test](#5-test)
 
 # 1 Overview
 ## 1.1 Introduction
@@ -452,15 +453,35 @@ mPlayableNativeAd.loadAd()
 
 The [NativeAdSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/NativeAdSample.java) file is the sample code of native ad(Self Rendering).
 
-# 5 Others
-## 5.1 Sets proguard file
+# 4 Others
+## 4.1 GDPR
+This documentation is provided for compliance with the European Union's General Data Protection Regulation (GDPR). If you are collecting consent from your users, you can make use of APIs discussed below to inform ZPLAYAds SDK.
+```java 
+enum GDPRStatus {
+    // The user has granted consent for personalized ads.
+    PERSONALIZED,
+    // The user has granted consent for non-personalized ads.
+    NON_PERSONALIZED,
+    // The user has neither granted nor declined consent for personalized or non-personalized ads.
+    UNKNOWN
+}
+```
+GDPR related methods
+```java
+// Set the GDPR status
+PlayableAdsSettings.setGDPRConsent(GDPRStatus.PERSONALIZED);
+
+// Get GDPR status
+PlayableAdsSettings.getGDPRConsent()
+```
+## 4.2 Sets proguard file
 If the project need to be proguarded, put the following code into the proguard.pro file.
 ```
 # ZPLAYAds
 -keep class com.playableads.**{*;}
 ```
 
-## 5.2 State Code and Description
+## 4.3 State Code and Description
 
 | state code | description                    | notes                                                                                                                                |
 | ---------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
@@ -476,11 +497,11 @@ If the project need to be proguarded, put the following code into the proguard.p
 | 5001       | context is null                | context is null, please check whether context has been passed correctly                                                              |
 | 5002       | network error                  | network error                                                                                                                        |
 
-## 5.3 FAQ
+## 4.4 FAQ
 
 If you have any problems during the process of integration, or if you found any issue in the SDK, please feel free to ask questions and [push an issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=[Describe%20the%20issue%20briefly]&body=Write%20here%20with%20the%20detail%20message%20of%20the%20issue.%20If%20you%20have%20any%20error%20log%20about%20the%20issue,%20please%20attach%20here,%20too.%20Thanks%20a%20lot%20)
 
-# 6 Test
+# 5 Test
 You can use the following testing id when you are testing. Testing id won't generate revenue. Please use official id when you release your App.
 
 | AD_TYPE                  | APP_ID                               | AD_UNIT_ID                           |

@@ -26,9 +26,10 @@
          * [3.4.1 原生广告接入（托管渲染）](#341-原生广告接入托管渲染)
          * [3.4.2 原生广告接入（自渲染）](#342-原生广告接入自渲染)
    * [4 其它](#4-其它)
-      * [4.1 混淆设置](#41-混淆设置)
-      * [4.2 状态码及含意](#42-状态码及含意)
-      * [4.3 FAQ](#43-faq)
+      * [4.1 GDPR](#41-GDPR)
+      * [4.2 混淆设置](#42-混淆设置)
+      * [4.3 状态码及含意](#43-状态码及含意)
+      * [4.4 FAQ](#44-faq)
    * [5 测试](#5-测试)
 
 # 1 概述
@@ -442,13 +443,33 @@ mPlayableNativeAd.loadAd()
 完整代码示例请参考[NativeAdSample](./app/src/main/java/com/zplay/playable/playableadsdemo/sample/NativeAdSample.java)
 
 # 4 其它
-## 4.1 混淆设置
+## 4.1 GDPR
+本文件是为遵守欧洲联盟的一般数据保护条例(GDPR)而提供的。 自 SDK 2.6.0 起，如果您正在收集用户的信息，您可以使用下面提供的api将此信息通知给 ZPLAYAds SDK.
+```java
+enum GDPRStatus {
+    // 用户已授予个性化广告的同意权
+    PERSONALIZED,
+    // 用户已授予非个性化广告的同意权
+    NON_PERSONALIZED,
+    // 默认设置，用户未设置 GDPR 状态
+    UNKNOWN
+}
+```
+GDPR 相关方法
+```java
+// 设置 GDPR 状态
+PlayableAdsSettings.setGDPRConsent(GDPRStatus.PERSONALIZED);
+
+// 获取 GDPR 状态
+PlayableAdsSettings.getGDPRConsent()
+```
+## 4.2 混淆设置
 如果项目做混淆，请将以下代码放到proguard-rules.pro文件
 ```
 -keep class com.playableads.**{*;}
 ```
 
-## 4.2 状态码及含意
+## 4.3 状态码及含意
 
 | 状态码 | 描述                           | 补充                                                                                           |
 | ------ | ------------------------------ | ---------------------------------------------------------------------------------------------- |
@@ -464,7 +485,7 @@ mPlayableNativeAd.loadAd()
 | 5001   | context is null                | context为空，检查是否正确传入context值                                                         |
 | 5002   | network error                  | 网络错误                                                                                       |
 
-## 4.3 FAQ
+## 4.4 FAQ
 在接入过程中如果遇到问题，或者可玩SDK有什么不足之处，[欢迎提issue](https://github.com/zplayads/PlayableAdsDemo-android/issues/new?title=%5B%E7%AE%80%E5%8D%95%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8B%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%5D&body=%E8%AF%B7%E4%BF%AE%E6%94%B9%E4%B8%8A%E6%96%B9%E7%9A%84%E6%A0%87%E9%A2%98%E6%9D%A5%E7%AE%80%E8%A6%81%E6%8F%8F%E8%BF%B0%E8%A6%81%E6%B1%87%E6%8A%A5%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%8C%E5%B9%B6%E6%8A%8A%E8%AF%A6%E7%BB%86%E7%9A%84%E5%86%85%E5%AE%B9%E5%86%99%E5%9C%A8%E8%BF%99%E9%87%8C%EF%BC%8C%E5%A6%82%E6%9E%9C%E5%8F%AF%E8%83%BD%E7%9A%84%E8%AF%9D%E8%AF%B7%E9%99%84%E4%B8%8A%E9%94%99%E8%AF%AF%E6%97%A5%E5%BF%97)，我们会在第一时间处理您提出的问题，万分感谢。
 
 # 5 测试
