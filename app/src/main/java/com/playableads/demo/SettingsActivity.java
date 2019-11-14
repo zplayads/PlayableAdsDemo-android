@@ -1,6 +1,5 @@
-package com.zplay.playable.playableadsdemo;
+package com.playableads.demo;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.zplay.playable.playableadsdemo.util.UserConfig;
+import com.playableads.demo.util.UserConfig;
 
 import java.io.File;
 
@@ -39,6 +38,12 @@ public class SettingsActivity extends ToolBarActivity {
     UserConfig mConfig;
     @BindView(R.id.autoload_model)
     SwitchCompat mAutoloadSwitch;
+    @BindView(R.id.autoload_model_interstitial)
+    SwitchCompat mAutoloadInterstitialSwitch;
+    @BindView(R.id.test_env_model)
+    SwitchCompat mTestEnvSwitch;
+    @BindView(R.id.gdpr_switch)
+    SwitchCompat mGdprSwitch;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,12 +58,20 @@ public class SettingsActivity extends ToolBarActivity {
     protected void onResume() {
         super.onResume();
         mChannelId.setText(mConfig.getChannelId());
+        mAutoloadSwitch.setChecked(mConfig.isAutoload());
+        mAutoloadInterstitialSwitch.setChecked(mConfig.isInterstitialAutoload());
+        mTestEnvSwitch.setChecked(mConfig.isTestEnv());
+        mGdprSwitch.setChecked(mConfig.gdprConsent());
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mConfig.setChannelId(mChannelId.getText().toString().trim());
+        mConfig.setAutoload(mAutoloadSwitch.isChecked());
+        mConfig.setInterstitialAutoload(mAutoloadInterstitialSwitch.isChecked());
+        mConfig.setTestEnv(mTestEnvSwitch.isChecked());
+        mConfig.setGdprConsent(mGdprSwitch.isChecked());
     }
 
     @OnClick(R.id.aa_clear_cache)
@@ -73,7 +86,6 @@ public class SettingsActivity extends ToolBarActivity {
                 .setTitle("Alert")
                 .setMessage("Clear cache will kill the app, do you want to clear it?")
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @SuppressLint("StaticFieldLeak")
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 

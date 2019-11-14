@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo;
+package com.playableads.demo;
 
 import android.content.Context;
 import android.content.Intent;

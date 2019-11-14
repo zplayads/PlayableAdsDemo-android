@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
+
+        <EditText
+            android:id="@+id/app_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/app_id"
+            android:paddingRight="30dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/appIdClearer"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="5dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp">
+
+        <EditText
+            android:id="@+id/unit_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/ad_unit_id"
+            android:paddingRight="30dp"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/unitIdClearer"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="5dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:checkedButton="@+id/default_selection">
+
+        <RadioButton
+            android:id="@+id/default_selection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="on320x50ModelClicked"
+            android:text="BANNER_SIZE_320X50" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="on728x90ModelClicked"
+            android:text="BANNER_SIZE_728X90" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSmartModelClicked"
+            android:text="BANNER_SIZE_SMART" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/loadAd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="loadAd"
+            android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/destroy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="destroy" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/logTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/bannerContainerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#222"
+        android:minHeight="32dp" />
+</LinearLayout>

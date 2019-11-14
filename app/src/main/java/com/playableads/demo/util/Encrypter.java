@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo.util;
+package com.playableads.demo.util;
 
 import android.text.TextUtils;
 import android.util.Log;

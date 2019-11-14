@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo.sample;
+package com.playableads.demo.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +15,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.zplay.playable.playableadsdemo.R;
-import com.zplay.playable.playableadsdemo.ToolBarActivity;
-import com.zplay.playable.playableadsdemo.util.LogTextView;
-import com.zplay.playable.playableadsdemo.util.UserConfig;
 import com.playableads.PlayableNativeExpressAd;
+import com.playableads.demo.R;
+import com.playableads.demo.ToolBarActivity;
+import com.playableads.demo.util.LogTextView;
+import com.playableads.demo.util.UserConfig;
 import com.playableads.nativead.NativeAd;
 import com.playableads.nativead.NativeAdExpressView;
 import com.playableads.nativead.NativeAdLoadListener;
@@ -32,8 +32,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
-
 /**
  * Description:
  * <p>
@@ -41,8 +39,9 @@ import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
  */
 
 public class NativeAdRecyclerViewSample extends ToolBarActivity {
+    private static final String NATIVE_AD_APP_ID = "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF";
     private static final String NATIVE_AD_UNIT_ID = "0246FB55-3042-9F29-D4AB-21C6349EEE83";
-    private static final String[] sAppAndUnitId = new String[]{APP_ID, NATIVE_AD_UNIT_ID};
+    private static final String[] sAppAndUnitId = new String[]{NATIVE_AD_APP_ID, NATIVE_AD_UNIT_ID};
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
@@ -152,7 +151,7 @@ public class NativeAdRecyclerViewSample extends ToolBarActivity {
             return;
         }
         if (TextUtils.isEmpty(s)) {
-            sAppAndUnitId[0] = APP_ID;
+            sAppAndUnitId[0] = NATIVE_AD_APP_ID;
         } else {
             sAppAndUnitId[0] = s.toString();
         }

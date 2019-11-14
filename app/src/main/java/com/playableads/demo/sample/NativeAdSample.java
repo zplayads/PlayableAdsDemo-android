@@ -1,4 +1,4 @@
-package com.zplay.playable.playableadsdemo.sample;
+package com.playableads.demo.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-import com.zplay.playable.playableadsdemo.R;
-import com.zplay.playable.playableadsdemo.ToolBarActivity;
-import com.zplay.playable.playableadsdemo.util.LogTextView;
-import com.zplay.playable.playableadsdemo.util.UserConfig;
 import com.playableads.PlayableNativeAd;
+import com.playableads.demo.R;
+import com.playableads.demo.ToolBarActivity;
+import com.playableads.demo.util.LogTextView;
+import com.playableads.demo.util.UserConfig;
 import com.playableads.nativead.NativeAd;
 import com.playableads.nativead.NativeAdLoadListener;
 import com.playableads.nativead.NativeAdRender;
@@ -25,8 +25,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnTextChanged;
 
-import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
-
 /**
  * Description: self render native ad sample activity
  * <p>
@@ -34,8 +32,9 @@ import static com.zplay.playable.playableadsdemo.MainActivity.APP_ID;
  */
 
 public class NativeAdSample extends ToolBarActivity {
+    private static final String NATIVE_AD_APP_ID = "5C5419C7-A2DE-88BC-A311-C3E7A646F6AF";
     private static final String NATIVE_AD_UNIT_ID = "BB8452AD-06E7-140B-00DC-FD6CB6B40FAA";
-    private static final String[] sAppAndUnitId = new String[]{APP_ID, NATIVE_AD_UNIT_ID};
+    private static final String[] sAppAndUnitId = new String[]{NATIVE_AD_APP_ID, NATIVE_AD_UNIT_ID};
 
     private PlayableNativeAd mPlayableNativeAd;
     @BindView(R.id.amn_native_placer)
@@ -136,7 +135,7 @@ public class NativeAdSample extends ToolBarActivity {
             return;
         }
         if (TextUtils.isEmpty(s)) {
-            sAppAndUnitId[0] = APP_ID;
+            sAppAndUnitId[0] = NATIVE_AD_APP_ID;
         } else {
             sAppAndUnitId[0] = s.toString();
         }

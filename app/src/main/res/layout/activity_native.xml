@@ -89,7 +89,7 @@
         </ScrollView>
     </LinearLayout>
 
-    <com.zplay.playable.playableadsdemo.util.LogTextView
+    <com.playableads.demo.util.LogTextView
         android:id="@+id/amn_log"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
